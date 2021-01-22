@@ -18,3 +18,4 @@ const Route = use('Route')
 
 Route.on('/').render('welcome')
 Route.get('/customers-api', 'CustomerController.index')
+Route.get('/customers', 'CustomerController.adminIndex')

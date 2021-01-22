@@ -3,10 +3,13 @@
 const Customers = use('App/Models/Customer')
 
 class CustomerController {
-  async index({view, response}){
+  async index({response}){
     let customers = await Customers.all()
-    console.log(customers.toJSON())
-    response.send(customers.toJSON())
+    // response.send(customers.toJSON())
+    response.json(customers)
+  }
+  async adminIndex({view}){
+    let customers = await Customers.all()
   }
 }
 
