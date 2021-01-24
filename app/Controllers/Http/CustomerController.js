@@ -10,6 +10,9 @@ class CustomerController {
   }
   async adminIndex({view}){
     let customers = await Customers.all()
+    return view.render('customers', {
+      customers:customers.toJSON()
+    })
   }
 }
 

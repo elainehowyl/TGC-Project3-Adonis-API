@@ -1,0 +1,22 @@
+@layout('base')
+@section('content')
+<h1>Customer's List</h1>
+<table class="table">
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Contact Number</th>
+    <th>Email</th>
+    <th>Password</th>
+  </tr>
+  @each(c in customers)
+  <tr>
+    <td>{{c.first_name}}</td>
+    <td>{{c.last_name}}</td>
+    <td>{{c.contact_number}}</td>
+    <td>{{c.email}}</td>
+    <td>{{c.password}}</td>
+  </tr>
+  @endeach
+</table>
+@endsection
