@@ -9,13 +9,13 @@
     <th>Email</th>
     <th>Password</th>
   </tr>
-  @each(c in customers)
+  @each(u in users)
   <tr>
-    <td>{{c.first_name}}</td>
-    <td>{{c.last_name}}</td>
-    <td>{{c.contact_number}}</td>
-    <td>{{c.email}}</td>
-    <td>{{c.password}}</td>
+    <td>{{u.first_name}}</td>
+    <td>{{u.last_name}}</td>
+    <td>{{u.contact_number}}</td>
+    <td>{{u.email}}</td>
+    <td>{{u.password}}</td>
   </tr>
   @endeach
 </table>
