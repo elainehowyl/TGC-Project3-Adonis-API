@@ -7,7 +7,7 @@
     <th>Last Name</th>
     <th>Contact Number</th>
     <th>Email</th>
-    <th>Password</th>
+    <th>Addresses</th>
   </tr>
   @each(u in users)
   <tr>
@@ -15,7 +15,13 @@
     <td>{{u.last_name}}</td>
     <td>{{u.contact_number}}</td>
     <td>{{u.email}}</td>
-    <td>{{u.password}}</td>
+    @each(a in u.addresses)
+    <td>
+      <table class="table">
+        <tr>{{a.block_number}} {{a.street_name}}, {{a.unit_number}}, {{a.postal_code}}, {{a.building_name}}</tr>
+      </table>
+    </td>
+    @endeach
   </tr>
   @endeach
 </table>
