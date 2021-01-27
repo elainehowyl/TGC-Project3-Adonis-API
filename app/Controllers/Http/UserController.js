@@ -18,17 +18,6 @@ class CustomerController {
       'users':users.toJSON(),
     })
   }
-
-  async showOne({params, response}) {
-    // extract out the book_id parameter from the URL
-    let userId = params.user_id;
-
-    // select * from books where id = bookId
-    let user = await Users.find(userId);
-    console.log(user)
-    let addresses = await user.addresses().fetch()
-    response.json(addresses)
-  }
 }
 
 module.exports = CustomerController

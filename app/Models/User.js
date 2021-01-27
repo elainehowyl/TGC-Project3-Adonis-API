@@ -8,7 +8,8 @@ const Model = use('Model')
 
 class User extends Model {
   addresses(){
-    return this.belongsToMany('App/Models/Address').pivotTable('address_user')
+    // return this.belongsToMany('App/Models/Address').pivotTable('address_user')
+    return this.belongsToMany('App/Models/Address')
   }
   static boot () {
     super.boot()
