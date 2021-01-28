@@ -34,22 +34,16 @@ class UserController {
     newUser.last_name = body.last_name
     newUser.contact_number = body.contact_number
     await newUser.save()
-    let addresses = await Addresses.all()
-    let addressesJ = addresses.toJSON()
-    for(let a of addressesJ){
-      if(!a.unit_number.includes(body.unit_number) && !a.postal_code.includes(body.postal_code)){
-        let newAddress = new Addresses()
-        newAddress.street_name = body.street_name
-        newAddress.unit_number = body.unit_number
-        newAddress.postal_code = body.postal_code
-        newAddress.building_name = body.building_name
-        newAddress.block_number = body.block_number
-        await newAddress.save()
-        await newUser.addresses().attach(body.street_name, body.unit_number, body.postal_code, body.building_name, body.block_number)
-      }
-      // i think
-    }
-
+    let newAddress = new Addresses()
+    newAddress.street_name = body.street_name
+    newAddress.block_number = body.block_number
+    newAddress.unit_number = body.unit_number
+    newAddress.building_name = body.building_name
+    newAddress.postal_code = body.postal_code
+    await newAddress.save()
+    console.log(newAddress)
+    await newUser.addresses().attach(newAddress.id)
+    response.redirect('/users')
     // let users = await Users.query().with('addresses').fetch()
   }
 }
