@@ -44,7 +44,25 @@ class UserController {
     console.log(newAddress)
     await newUser.addresses().attach(newAddress.id)
     response.redirect('/users')
-    // let users = await Users.query().with('addresses').fetch()
+  }
+  async update({request, params, view}){
+    let userId = request.params.id
+    let user = await Users.find(userId)
+    return view.render('users/updateuser', {
+      'user':user.toJSON()
+    })
+  }
+  async processUpdate({request, params, response}){
+    let userId = request.params.id
+    let user = await Users.find(userId)
+    let body = request.post()
+    user.email = body.email
+    user.first_name = body.first_name
+    user.last_name = body.last_name
+    user.contact_number = body.contact_number
+    user.password = body.password
+    await user.save()
+    response.redirect('/users')
   }
 }
 
