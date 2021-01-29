@@ -41,7 +41,6 @@ class UserController {
     newAddress.building_name = body.building_name
     newAddress.postal_code = body.postal_code
     await newAddress.save()
-    console.log(newAddress)
     await newUser.addresses().attach(newAddress.id)
     response.redirect('/users')
   }
@@ -63,6 +62,15 @@ class UserController {
     user.password = body.password
     await user.save()
     response.redirect('/users')
+  }
+  async delete({request, params, response}){
+      let userId = request.params.id
+      let user = await Users.find(userId)
+      // 1. remove the relationships from pivot table
+      await user.addresses().detach()
+      // 2. delete the user
+      await user.delete()
+      response.route('UsersList')
   }
 }
 
