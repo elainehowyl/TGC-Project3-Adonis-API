@@ -36,9 +36,19 @@ class UserController {
     await newUser.save()
     let newAddress = new Addresses()
     newAddress.street_name = body.street_name
-    newAddress.block_number = body.block_number
+    if(body.block_number === null){
+      newAddress.block_number = ""
+    }
+    else{
+      newAddress.block_number = body.block_number
+    }
     newAddress.unit_number = body.unit_number
-    newAddress.building_name = body.building_name
+    if(body.building_name === null){
+      newAddress.building_name = ""
+    }
+    else{
+      newAddress.building_name = body.building_name
+    }
     newAddress.postal_code = body.postal_code
     await newAddress.save()
     await newUser.addresses().attach(newAddress.id)
