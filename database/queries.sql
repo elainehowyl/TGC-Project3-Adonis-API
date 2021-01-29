@@ -16,3 +16,4 @@ ALTER TABLE addresses RENAME COLUMN building_number TO building_name;
 
 SELECT * FROM users JOIN address_user ON users.id = address_user.user_id;
 
+DELETE from addresses WHERE id=8;

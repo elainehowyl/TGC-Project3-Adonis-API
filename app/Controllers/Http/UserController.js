@@ -76,12 +76,27 @@ class UserController {
   async delete({request, params, response}){
       let userId = request.params.id
       let user = await Users.find(userId)
+      let user_address = await user.addresses().fetch()
+      let user_addressJ = user_address.toJSON()
+      // console.log("Show individual user info with addresses: ", user_addressJ)
+      let addressesId = []
+      for(let u_a of user_addressJ){
+        addressesId.push(u_a.id)
+      }
+      // let addressId = await user_addressJ.id
+      // console.log("Fetched AddressId", addressId)
       // 1. remove the relationships from pivot table
       await user.addresses().detach()
       // 2. delete the user
       await user.delete()
+      // 3. delete the address
+      for(let ad of addressesId){
+        let selectedAddress = await Addresses.find(ad)
+        await selectedAddress.delete()
+      }
       response.route('UsersList')
   }
 }
 
 module.exports = UserController
+
