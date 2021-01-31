@@ -1,0 +1,17 @@
+@layout('base')
+@section('content')
+<h1> Add a new category </h1>
+<form method="POST">
+  {{csrfField()}}
+  <div>
+    <label class="form-label">Category Name</label>
+    <input type="text" class="form-control" name="name"/>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Description</label>
+    {{--  <label for="exampleFormControlTextarea1">Description</label>  --}}
+    <textarea class="form-control" rows="3" name="description"></textarea>
+  </div>
+  <input type="submit" class="btn btn-light mt-3"/>
+</form>
+@endsection

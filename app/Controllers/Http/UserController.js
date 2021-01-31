@@ -5,7 +5,7 @@ const Addresses = use('App/Models/Address')
 
 class UserController {
   // for cRud api
-  async index({response, params}){
+  async index({response}){
     // let users = await Users.all()
     // let addresses = await users.addresses().fetch()
     let users = await Users.query().with('addresses').fetch()

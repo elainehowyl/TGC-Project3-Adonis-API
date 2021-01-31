@@ -4,6 +4,9 @@
 const Model = use('Model')
 
 class Food extends Model {
+  categories(){
+    return this.belongsTo('App/Models/Category')
+  }
 }
 
 module.exports = Food

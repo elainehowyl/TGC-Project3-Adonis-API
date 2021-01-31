@@ -1,0 +1,31 @@
+@layout('base')
+@section('content')
+<h1>Category List</h1>
+<a href="{{ route('createNewCategory')}}">
+  <button type="button" class="btn btn-primary">Add New Category</button>
+</a>
+<table class="table">
+  <tr>
+    <th></th>
+    <th></th>
+    <th>ID</th>
+    <th>Name</th>
+  </tr>
+  @each(c in categories)
+  <tr>
+    <td>
+      <a href="{{ route('update', {id:c.id}) }}">
+        <button class="btn btn-danger btn-sm">Update</button>
+      </a>
+    </td>
+    <td>
+      <a href="{{ route('delete', {id:c.id}) }}">
+        <button class="btn btn-danger btn-sm">Delete</button>
+      </a>
+    </td>
+    <td>{{c.id}}</td>
+    <td>{{c.name}}</td>
+  </tr>
+  @endeach
+</table>
+@endsection
