@@ -27,6 +27,9 @@ Route.get('/users/update/:id', 'UserController.update')
 Route.post('/users/update/:id', 'UserController.processUpdate').as('update')
 Route.get('/users/delete/:id', 'UserController.delete').as('delete')
 
+Route.get('/category-api', 'CategoryController.index')
 Route.get('/category', 'CategoryController.adminIndex').as('categoryList')
 Route.get('/category/create', 'CategoryController.create').as('createNewCategory')
 Route.post('/category/create', 'CategoryController.processCreate')
+
+Route.get('/food', 'FoodController.adminIndex').as('foodCategory')

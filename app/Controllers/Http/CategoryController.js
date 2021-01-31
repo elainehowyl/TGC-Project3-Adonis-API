@@ -3,6 +3,10 @@
 const Categories = use('App/Models/Category')
 
 class CategoryController {
+  async index({response}){
+    let categories = await Categories.all()
+    response.json(categories)
+  }
   async adminIndex({view}){
     let categories = await Categories.all()
     return view.render('categories/categorylist', {
