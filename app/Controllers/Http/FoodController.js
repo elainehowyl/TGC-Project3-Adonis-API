@@ -2,6 +2,7 @@
 
 const Foods = use('App/Models/Food')
 const Category = use('App/Models/Category')
+const Config = use('Config')
 
 class FoodController {
   async index({response}){
@@ -17,9 +18,14 @@ class FoodController {
   async create({view}){
     let category = await Category.all()
     return view.render('food/createfood', {
-      'category':category.toJSON()
+      'category':category.toJSON(),
+      'cloudinaryName':Config.get('cloudinary.name'),
+      'cloudinaryApiKey':Config.get('cloudinary.api_key'),
+      'cloudinaryPreset':Config.get('cloudinary.preset'),
+      'sign_url':'/cloudinary/sign',
     })
   }
+
   async processCreate({request,response}){
     let body = request.post()
     let newFood = new Foods()

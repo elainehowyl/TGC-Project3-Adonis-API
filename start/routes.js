@@ -36,3 +36,5 @@ Route.get('/food-api', 'FoodController.index')
 Route.get('/food', 'FoodController.adminIndex').as('foodList')
 Route.get('/food/create', 'FoodController.create').as('createNewFood')
 Route.post('/food/create', 'FoodController.processCreate')
+
+Route.get('/cloudinary/sign', 'CloudinaryController.sign').as('cloudinary_sign')
