@@ -20,15 +20,15 @@ class FoodController {
       'category':category.toJSON()
     })
   }
-  async processCreate({}){
+  async processCreate({request,response}){
     let body = request.post()
     let newFood = new Foods()
     newFood.name = body.name
     newFood.description = body.description
     newFood.price = body.price
     newFood.image_source = body.image_source
+    newFood.category_id = body.category
     await newFood.save()
-    await newFood.categories().attach(body.category)
     // response.json(newFood)
     response.route('foodList')
   }
