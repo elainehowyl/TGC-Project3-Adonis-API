@@ -1,0 +1,42 @@
+@layout('base')
+@section('content')
+<h1>Full Menu of Food Product</h1>
+<a href="{{ route('createNewUser')}}">
+  <button type="button" class="btn btn-primary">Add new menu</button>
+</a>
+<table class="table">
+  <tr>
+    <th></th>
+    <th></th>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Category</th>
+    <th>Description</th>
+    <th>Price</th>
+    <th>Image</th>
+  </tr>
+  @each(f in foods)
+  <tr>
+    <td>
+      <a href="{{ route('update', {id:f.id}) }}">
+        <button class="btn btn-danger btn-sm">Update</button>
+      </a>
+    </td>
+    <td>
+      <a href="{{ route('delete', {id:f.id}) }}">
+        <button class="btn btn-danger btn-sm">Delete</button>
+      </a>
+    </td>
+    <td>{{f.id}}</td>
+    <td>{{f.name}}</td>
+    <td>{{u.category}}</td>
+    <td>{{u.description}}</td>
+    <td>{{u.price}}</td>
+    <td>
+      <img src={{u.image_source}} width="50%" height="50%" alt="image_source"/>
+    </td>
+    {{--  <td>{{u.image_source}}</td>  --}}
+  </tr>
+  @endeach
+</table>
+@endsection

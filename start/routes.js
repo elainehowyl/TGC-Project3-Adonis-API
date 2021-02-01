@@ -32,4 +32,6 @@ Route.get('/category', 'CategoryController.adminIndex').as('categoryList')
 Route.get('/category/create', 'CategoryController.create').as('createNewCategory')
 Route.post('/category/create', 'CategoryController.processCreate')
 
-Route.get('/food', 'FoodController.adminIndex').as('foodCategory')
+Route.get('/food-api', 'FoodController.index')
+Route.get('/food', 'FoodController.adminIndex').as('foodList')
+Route.get('/food/create', 'FoodController.create').as('createNewFood')
