@@ -14,12 +14,12 @@
   @each(c in categories)
   <tr>
     <td>
-      <a href="{{ route('update', {id:c.id}) }}">
-        <button class="btn btn-danger btn-sm">Update</button>
+      <a href="{{ route('updateCategory', {id:c.id}) }}">
+        <button class="btn btn-danger btn-sm">Edit</button>
       </a>
     </td>
     <td>
-      <a href="{{ route('delete', {id:c.id}) }}">
+      <a href="{{ route('deleteCategory', {id:c.id}) }}">
         <button class="btn btn-danger btn-sm">Delete</button>
       </a>
     </td>

@@ -1,6 +1,7 @@
 'use strict'
 
 const Categories = use('App/Models/Category')
+const Foods = use('App/Models/Food')
 
 class CategoryController {
   async index({response}){
@@ -20,11 +21,33 @@ class CategoryController {
     let body = request.post()
     let newCategory = new Categories()
     newCategory.name = body.name
-    newCategory.description = body.description
     await newCategory.save()
     // response.redirect('/category')
     response.route('categoryList')
   }
+  async update({request, params, view}){
+    let categoryId = params.id
+    let category = await Categories.find(categoryId)
+    return view.render('categories/updatecategory', {
+      'category':category.toJSON()
+    })
+  }
+  async processUpdate({request, params, response}){
+    let body = request.post()
+    let categoryId = params.id
+    let category = await Categories.find(categoryId)
+    category.name = body.name
+    await category.save()
+    response.route('categoryList')
+  }
+  // async delete({params, response}){
+  //   let categoryId = params.id
+  //   let category = await Categories.find(categoryId)
+  //   let food = await Foods.findBy('category_id', categoryId)
+  //   await food.categories().dissociate()
+  //   await category.delete()
+  //   response.route('categoryList')
+  // }
 }
 
 module.exports = CategoryController

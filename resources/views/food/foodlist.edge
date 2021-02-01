@@ -29,11 +29,11 @@
     </td>
     <td>{{f.id}}</td>
     <td>{{f.name}}</td>
-    <td>{{u.category}}</td>
-    <td>{{u.description}}</td>
-    <td>{{u.price}}</td>
+    <td>{{f.categories.name}}</td>
+    <td>{{f.description}}</td>
+    <td>{{f.price}}</td>
     <td>
-      <img src='{{u.image_source}}' width="50%" height="50%" alt="image_source"/>
+      <img src='{{f.image_source}}'alt="image_source"/>
     </td>
     {{--  <td>{{u.image_source}}</td>  --}}
   </tr>

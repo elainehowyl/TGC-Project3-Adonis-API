@@ -6,11 +6,13 @@ const Config = use('Config')
 
 class FoodController {
   async index({response}){
-    let foods = await Foods.all()
+    let foods = await Foods.query().with('categories').fetch()
+    // let foods = await Foods.all()
     response.json(foods)
   }
   async adminIndex({view}){
-    let foods = await Foods.all()
+    let foods = await Foods.query().with('categories').fetch()
+    // let foods = await Foods.all()
     return view.render('food/foodlist',{
       'foods':foods.toJSON()
     })
@@ -38,6 +40,8 @@ class FoodController {
     // response.json(newFood)
     response.route('foodList')
   }
+
+  async update({}){}
 }
 
 module.exports = FoodController
