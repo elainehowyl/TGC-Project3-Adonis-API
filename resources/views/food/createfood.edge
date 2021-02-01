@@ -1,6 +1,6 @@
 @layout('base')
 @section('content')
-<h1> Add Food to Menu </h1>
+<h1> Add to Menu </h1>
 <form method="POST">
   {{csrfField()}}
   <div>
@@ -20,11 +20,13 @@
     <label class="form-label">Image</label>
     <input type="text" class="form-control" name="image_source"/>
   </div>
-  <select name="category">
-    @each(c in categories)
-    <option value="{{c.id}}">{{c.name}}</option>
-    @endeach
-  </select>
+  <div>
+   <select name="category">
+     @each(c in category)
+     <option value="{{c.id}}">{{c.name}}</option>
+     @endeach
+   </select>
+  </div>
   <input type="submit" class="btn btn-light mt-3"/>
 </form>
 @endsection
