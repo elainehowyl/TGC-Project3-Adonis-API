@@ -39,6 +39,11 @@
       </table>
     </td>
     @endeach
+    <td>
+      <a href="{{ route('createNewAddress', {id:u.id})}}">
+        <button type="button" class="btn btn-primary btn-sm">+</button>
+      </a>
+    </td>
   </tr>
   @endeach
 </table>

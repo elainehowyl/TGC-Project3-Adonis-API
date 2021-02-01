@@ -78,6 +78,7 @@ class UserController {
       let user = await Users.find(userId)
       let user_address = await user.addresses().fetch()
       let user_addressJ = user_address.toJSON()
+      console.log(user_addressJ)
       // console.log("Show individual user info with addresses: ", user_addressJ)
       let addressesId = []
       for(let u_a of user_addressJ){

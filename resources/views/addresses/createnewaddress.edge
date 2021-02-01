@@ -1,0 +1,20 @@
+@layout('base')
+@section('content')
+<h1> Add new address </h1>
+<form method="POST">
+  {{csrfField()}}
+  <div>
+    <label class="form-label">Street Name</label>
+    <input type="text" class="form-control" name="street_name"/>
+    <label class="form-label">Block Number</label>
+    <input type="text" class="form-control" name="block_number"/>
+    <label class="form-label">Unit Number</label>
+    <input type="text" class="form-control" name="unit_number"/>
+    <label class="form-label">Building Name</label>
+    <input type="text" class="form-control" name="building_name"/>
+    <label class="form-label">Postal Code</label>
+    <input type="text" class="form-control" name="postal_code"/>
+  </div>
+  <input type="submit" class="btn btn-light mt-3"/>
+</form>
+@endsection
