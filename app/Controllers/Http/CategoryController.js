@@ -2,6 +2,7 @@
 
 const Categories = use('App/Models/Category')
 const Foods = use('App/Models/Food')
+const Database = use('Database')
 
 class CategoryController {
   async index({response}){
@@ -40,14 +41,13 @@ class CategoryController {
     await category.save()
     response.route('categoryList')
   }
-  // async delete({params, response}){
-  //   let categoryId = params.id
-  //   let category = await Categories.find(categoryId)
-  //   let food = await Foods.findBy('category_id', categoryId)
-  //   await food.categories().dissociate()
-  //   await category.delete()
-  //   response.route('categoryList')
-  // }
+  async delete({params, response}){
+    let categoryId = params.id
+    let foods = await Foods.query().where('category_id', categoryId).delete()
+    let category = await Categories.find(categoryId)
+    await category.delete()
+    response.route('categoryList')
+  }
 }
 
 module.exports = CategoryController

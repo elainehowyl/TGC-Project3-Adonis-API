@@ -37,7 +37,7 @@ Route.get('/category/create', 'CategoryController.create').as('createNewCategory
 Route.post('/category/create', 'CategoryController.processCreate')
 Route.get('/category/update/:id', 'CategoryController.update').as('updateCategory')
 Route.post('/category/update/:id', 'CategoryController.processUpdate')
-// Route.get('/category/delete/:id', 'CategoryController.delete').as('deleteCategory')
+Route.get('/category/delete/:id', 'CategoryController.delete').as('deleteCategory')
 
 Route.get('/food-api', 'FoodController.index')
 Route.get('/food', 'FoodController.adminIndex').as('foodList')
