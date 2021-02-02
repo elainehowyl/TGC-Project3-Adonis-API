@@ -67,6 +67,13 @@ class FoodController {
     await food.save()
     response.route('foodList')
   }
+
+  async delete({params, response}){
+    let foodId = params.id
+    let food = await Foods.find(params.id)
+    await food.delete()
+    response.route('foodList')
+  }
 }
 
 module.exports = FoodController

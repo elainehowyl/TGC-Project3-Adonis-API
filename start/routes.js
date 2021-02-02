@@ -49,6 +49,6 @@ Route.get('/food/create', 'FoodController.create').as('createNewFood')
 Route.post('/food/create', 'FoodController.processCreate')
 Route.get('/food/update/:id', 'FoodController.update').as('updateFood')
 Route.post('/food/update/:id', 'FoodController.processUpdate')
-Route.get('/food/delete/:id', 'FoodController.update')
+Route.get('/food/delete/:id', 'FoodController.delete').as('deleteFood')
 
 Route.get('/cloudinary/sign', 'CloudinaryController.sign').as('cloudinary_sign')
