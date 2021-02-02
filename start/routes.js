@@ -49,4 +49,9 @@ Route.get('/food/update/:id', 'FoodController.update').as('updateFood')
 Route.post('/food/update/:id', 'FoodController.processUpdate')
 Route.get('/food/delete/:id', 'FoodController.delete').as('deleteFood')
 
+Route.get('/orders-api','OrderController.index')
+Route.get('/orders','OrderController.adminIndex').as('orderList')
+Route.get('/orders/create','OrderController.create').as('createNewOrder')
+Route.post('/orders/create','OrderController.processCreate')
+
 Route.get('/cloudinary/sign', 'CloudinaryController.sign').as('cloudinary_sign')
