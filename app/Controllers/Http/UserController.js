@@ -71,7 +71,8 @@ class UserController {
     user.contact_number = body.contact_number
     user.password = body.password
     await user.save()
-    response.redirect('/users')
+    // response.redirect('/users')
+    response.route('UsersList')
   }
   async delete({request, params, response}){
       let userId = request.params.id

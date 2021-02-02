@@ -31,6 +31,15 @@ class AddressController {
     await user.addresses().attach(newAddress.id)
     response.redirect('/users')
   }
+  async delete({params, response}){
+    let addressId = params.id
+    let address = await Addresses.find(addressId)
+    // 1. remove relationship from pivot table
+    await address.users().detach()
+    // 2. delete the address
+    await address.delete()
+    response.route('UsersList')
+  }
 }
 
 module.exports = AddressController

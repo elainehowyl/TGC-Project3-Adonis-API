@@ -35,7 +35,10 @@
     @each(a in u.addresses)
     <td>
       <table class="table">
-        <tr>{{a.block_number}} {{a.street_name}}, {{a.unit_number}}, {{a.postal_code}}, {{a.building_name}}</tr>
+        <tr>{{a.block_number}} {{a.street_name}}, {{a.unit_number}}, {{a.postal_code}}, {{a.building_name}}</tr><br>
+        <a href="{{ route('deleteAddress', {id:a.id})}}">
+           <button type="button" class="btn btn-primary btn-sm">Delete</button>
+        </a>
       </table>
     </td>
     @endeach
