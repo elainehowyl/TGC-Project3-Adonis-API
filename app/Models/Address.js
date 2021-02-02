@@ -7,6 +7,9 @@ class Address extends Model {
   users(){
     return this.belongsToMany('App/Models/User').pivotTable('address_user')
   }
+  orders(){
+    return this.hasMany('App/Models/Order')
+  }
 }
 
 module.exports = Address

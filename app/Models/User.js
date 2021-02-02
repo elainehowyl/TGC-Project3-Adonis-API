@@ -10,6 +10,9 @@ class User extends Model {
   addresses(){
     return this.belongsToMany('App/Models/Address').pivotTable('address_user')
   }
+  orders(){
+    return this.hasMany('App/Models/Order')
+  }
   static boot () {
     super.boot()
 
