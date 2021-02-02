@@ -31,6 +31,10 @@ Route.get('/users/addAddress/:id', 'AddressController.create')
 Route.post('/users/addAddress/:id', 'AddressController.processCreate').as('createNewAddress')
 Route.get('/users/deleteAddress/:id', 'AddressController.delete').as('deleteAddress')
 
+
+Route.get('/users/editAddress/:id', 'AddressController.update')
+Route.post('/users/editAddress/:id', 'AddressController.processUpdate').as('updateAddress')
+
 Route.get('/category-api', 'CategoryController.index')
 Route.get('/category', 'CategoryController.adminIndex').as('categoryList')
 Route.get('/category/create', 'CategoryController.create').as('createNewCategory')

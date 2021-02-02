@@ -35,16 +35,19 @@
     @each(a in u.addresses)
     <td>
       <table class="table">
-        <tr>{{a.block_number}} {{a.street_name}}, {{a.unit_number}}, {{a.postal_code}}, {{a.building_name}}</tr><br>
+        <tr>{{a.block_number}} {{a.street_name}}, {{a.unit_number}}, {{a.postal_code}}, {{a.building_name}}</tr><br><br>
+        <a href="{{ route('updateAddress', {id:a.id})}}">
+           <button type="button" class="btn btn-warning btn-sm">Edit</button>
+        </a><br><br>
         <a href="{{ route('deleteAddress', {id:a.id})}}">
-           <button type="button" class="btn btn-primary btn-sm">Delete</button>
+           <button type="button" class="btn btn-warning btn-sm">Delete</button>
         </a>
       </table>
     </td>
     @endeach
     <td>
       <a href="{{ route('createNewAddress', {id:u.id})}}">
-        <button type="button" class="btn btn-primary btn-sm">+</button>
+        <button type="button" class="btn btn-success btn-sm">+</button>
       </a>
     </td>
   </tr>

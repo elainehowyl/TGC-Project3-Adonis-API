@@ -28,8 +28,8 @@
     <input type="hidden" name="image_source" id="image_source" value="{{food.image_source}}"/>
   </div>
   <div>
-    <label class="form-label">Your Uploaded Image</label>
-    <img src="" id="uploaded-image"/>
+    <label class="form-label">Your Uploaded Image: </label><br>
+    <img src="{{food.image_source}}" id="uploaded-image" height="250px"/>
   </div>
   <input type="submit" class="btn btn-light mt-3"/>
 </form>
@@ -60,6 +60,7 @@
         console.log("Upload success!")
         console.log(result.info)
         document.querySelector('#image_source').value = result.info.url
+        document.querySelector('#uploaded-image').src = result.info.url
       }
     })
 

@@ -31,6 +31,39 @@ class AddressController {
     await user.addresses().attach(newAddress.id)
     response.redirect('/users')
   }
+
+  async update({params,view}){
+    let addressId = params.id
+    let address = await Addresses.find(addressId)
+    return view.render('addresses/updateaddress', {
+      'address':address.toJSON()
+    })
+  }
+
+  async processUpdate({params,response,request}){
+    let addressId = params.id
+    let address = await Addresses.find(addressId)
+    let body = request.post()
+    address.street_name = body.street_name
+    if(body.block_number === null){
+      address.block_number = ""
+    }
+    else{
+      address.block_number = body.block_number
+    }
+    address.unit_number = body.unit_number
+    if(body.building_name === null){
+      address.building_name = ""
+    }
+    else{
+      address.building_name = body.building_name
+    }
+    address.postal_code = body.postal_code
+    await address.save()
+    // await user.addresses().attach(newAddress.id)
+    response.redirect('/users')
+  }
+
   async delete({params, response}){
     let addressId = params.id
     let address = await Addresses.find(addressId)
