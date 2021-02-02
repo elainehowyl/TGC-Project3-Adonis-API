@@ -27,6 +27,10 @@
     <button type="button" class="btn btn-primary" id="upload-widget">Upload Image</button>
     <input type="hidden" name="image_source" id="image_source"/>
   </div>
+  <div id="show-image" style="display:none">
+    <label class="form-label">Your Uploaded Image</label>
+    <img src="" id="uploaded-image"/>
+  </div>
   <input type="submit" class="btn btn-light mt-3"/>
 </form>
 @endsection
@@ -56,6 +60,8 @@
         console.log("Upload success!")
         console.log(result.info)
         document.querySelector('#image_source').value = result.info.url
+        document.querySelector('#show-image').style.display = "block"
+        document.querySelector('#uploaded-image').src = result.info.url
       }
     })
 

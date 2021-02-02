@@ -1,31 +1,35 @@
 @layout('base')
 @section('content')
-<h1> Add to Menu </h1>
+<h1> Update Menu </h1>
 <form method="POST">
   {{csrfField()}}
   <div>
     <label class="form-label">Name</label>
-    <input type="name" class="form-control" name="name"/>
+    <input type="name" class="form-control" name="name" value="{{food.name}}"/>
   </div>
   <div class="form-group">
     <label class="form-label">Description</label>
     {{--  <label for="exampleFormControlTextarea1">Description</label>  --}}
-    <textarea class="form-control" rows="3" name="description"></textarea>
+    <textarea class="form-control" rows="3" name="description">{{food.description}}</textarea>
   </div>
   <div>
     <label class="form-label">Price</label>
-    <input type="text" class="form-control" name="price"/>
+    <input type="text" class="form-control" name="price" value="{{food.price}}"/>
   </div>
   <div>
    <select name="category">
      @each(c in category)
-     <option value="{{c.id}}">{{c.name}}</option>
+      <option value="{{c.id}}" {{c.id == food.category_id ? 'selected' : ''}}>{{c.name}}</option>
      @endeach
    </select>
   </div>
   <div>
     <button type="button" class="btn btn-primary" id="upload-widget">Upload Image</button>
-    <input type="hidden" name="image_source" id="image_source"/>
+    <input type="hidden" name="image_source" id="image_source" value="{{food.image_source}}"/>
+  </div>
+  <div>
+    <label class="form-label">Your Uploaded Image</label>
+    <img src="" id="uploaded-image"/>
   </div>
   <input type="submit" class="btn btn-light mt-3"/>
 </form>

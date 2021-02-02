@@ -41,7 +41,32 @@ class FoodController {
     response.route('foodList')
   }
 
-  async update({}){}
+  async update({params, view}){
+    let foodId = params.id
+    let food = await Foods.find(foodId)
+    let category = await Category.all()
+    return view.render('food/updatefood', {
+      'food':food.toJSON(),
+      'category':category.toJSON(),
+      'cloudinaryName':Config.get('cloudinary.name'),
+      'cloudinaryApiKey':Config.get('cloudinary.api_key'),
+      'cloudinaryPreset':Config.get('cloudinary.preset'),
+      'sign_url':'/cloudinary/sign',
+    })
+  }
+
+  async processUpdate({params, response, request}){
+    let foodId = params.id
+    let food = await Foods.find(foodId)
+    let body = request.post()
+    food.name = body.name
+    food.description = body.description
+    food.price = body.price
+    food.image_source = body.image_source
+    food.category_id = body.category
+    await food.save()
+    response.route('foodList')
+  }
 }
 
 module.exports = FoodController
