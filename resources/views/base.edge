@@ -11,6 +11,9 @@
     <title>Hello, world!</title>
   </head>
   <body>
+    @if(flashMessage('notification'))
+      <div class="alert alert-success">{{ flashMessage('notification') }}</div>
+    @endif
     <div class="container">
       @section('content')
       @endsection

@@ -18,8 +18,10 @@ const Route = use('Route')
 
 // Route.on('/').render('welcome')
 
-Route.get('/', 'UserController.login')
+Route.get('/', 'UserController.login').as('loginpage')
 Route.post('/', 'UserController.processLogin')
+
+Route.get('/users/logout', 'UserController.logout').as('logoutpage')
 
 Route.get('/users-api', 'UserController.index')
 Route.get('/users', 'UserController.adminIndex').as('UsersList')

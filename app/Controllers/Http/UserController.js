@@ -1,8 +1,33 @@
 'use strict'
 
+const { validateAll } = use('Validator')
 const Users = use('App/Models/User')
 const Addresses = use('App/Models/Address')
 const Orders = use('App/Models/Order')
+
+const rules = {
+  email:'required',
+  password:'required|min:8',
+  first_name:'required',
+  last_name:'required',
+  contact_number:'required|min:8',
+  street_name:'required',
+  unit_number:'required',
+  postal_code:'required',
+}
+
+const messages = {
+  'email.required':'Please provide an email',
+  'password.required':'Please provide a password',
+  'password.min':'Password should be at least 8 characters long',
+  'first_name.required':'Please enter your first name',
+  'last_name.required':'Please enter your last name',
+  'contact_number.required':'Please provide a contact number',
+  'contact_number.min':'Please provide a valid contact number',
+  'street_name.required':'Please enter your street name',
+  'unit_number.required':'Please enter your unit number',
+  'postal_code.required':'Please enter your postal code'
+}
 
 class UserController {
   // for cRud api
@@ -26,7 +51,7 @@ class UserController {
     return view.render('users/createuser')
   }
   // for processing Crud in admin view
-  async processCreate({response, request}){
+  async processCreate({response, request, session}){
     let body = request.post()
     let newUser = new Users()
     newUser.email = body.email
@@ -51,6 +76,7 @@ class UserController {
       newAddress.building_name = body.building_name
     }
     newAddress.postal_code = body.postal_code
+    session.flash({ notification: `${newUser.last_name} has been created` });
     await newAddress.save()
     await newUser.addresses().attach(newAddress.id)
     response.redirect('/users')
@@ -101,10 +127,30 @@ class UserController {
   login({view}){
     return view.render('loginpage')
   }
-  async processLogin({auth, request}){
+  async processLogin({auth, request, response, session}){
     let body = request.post()
-    await auth.attempt(body.email, body.password)
-    return "login successful!"
+    let users = await Users.all()
+    let usersJ = users.toJSON()
+    for(let u of usersJ){
+      if(!u.email.includes(body.email)){
+        session.flash({ warning: "Email does not exist!"})
+      }
+      else{
+        if(body.password !== u.password){
+          session.flash({ warning: "Password does not match!"})
+        }
+        else{
+          await auth.attempt(body.email, body.password)
+          response.route('UsersList')
+        }
+      }
+    }
+    // await auth.attempt(body.email, body.password)
+    // response.route('UsersList')
+  }
+  async logout({auth, response}){
+    await auth.logout()
+    response.route('loginpage')
   }
 }
 
