@@ -14,13 +14,10 @@ VALUES
 
 INSERT INTO orders (user_id, total_price, address_id)
 VALUES
-(23, 50000, 29),
-(23, 78090, 30),
-(23, 75673, 30),
-(23, 64899, 29)
+(6, 50000, 25)
 
 ALTER TABLE addresses RENAME COLUMN building_number TO building_name;
 
 SELECT * FROM users JOIN address_user ON users.id = address_user.user_id;
 
-DELETE from addresses WHERE id=8;
+DELETE from addresses WHERE id=25;

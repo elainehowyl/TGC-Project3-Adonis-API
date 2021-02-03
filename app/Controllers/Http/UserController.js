@@ -98,6 +98,14 @@ class UserController {
       }
       response.route('UsersList')
   }
+  login({view}){
+    return view.render('loginpage')
+  }
+  async processLogin({auth, request}){
+    let body = request.post()
+    await auth.attempt(body.email, body.password)
+    return "login successful!"
+  }
 }
 
 module.exports = UserController

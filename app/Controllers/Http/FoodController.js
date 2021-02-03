@@ -68,9 +68,14 @@ class FoodController {
     response.route('foodList')
   }
 
+  // There is no reason for admin to delete food unless I enter the wrong food / send food into wrong category
+  // Deleting of food will only occurs before customer can make an order
+  // Therefore, there should be no reason to worry about the associating food with order part.
+
   async delete({params, response}){
     let foodId = params.id
     let food = await Foods.find(params.id)
+    await food.orders().detach()
     await food.delete()
     response.route('foodList')
   }
