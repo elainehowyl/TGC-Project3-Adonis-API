@@ -43,7 +43,7 @@ class CategoryController {
   }
   async delete({params, response}){
     let categoryId = params.id
-    let foods = await Foods.query().where('category_id', categoryId).delete()
+    await Foods.query().where('category_id', categoryId).delete()
     let category = await Categories.find(categoryId)
     await category.delete()
     response.route('categoryList')

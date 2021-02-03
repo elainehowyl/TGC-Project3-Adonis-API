@@ -2,6 +2,7 @@
 
 const Users = use('App/Models/User')
 const Addresses = use('App/Models/Address')
+const Orders = use('App/Models/Order')
 
 class UserController {
   // for cRud api
@@ -79,19 +80,18 @@ class UserController {
       let user = await Users.find(userId)
       let user_address = await user.addresses().fetch()
       let user_addressJ = user_address.toJSON()
-      console.log(user_addressJ)
-      // console.log("Show individual user info with addresses: ", user_addressJ)
       let addressesId = []
       for(let u_a of user_addressJ){
         addressesId.push(u_a.id)
       }
-      // let addressId = await user_addressJ.id
-      // console.log("Fetched AddressId", addressId)
-      // 1. remove the relationships from pivot table
+      // 1. delete all the orders where user_id = userId so that the user_id wouldn't be associated with
+      // any orders as a foreign key
+      await Orders.query().where('user_id', userId).delete()
+      // 2. remove the relationships from pivot table in user_address
       await user.addresses().detach()
-      // 2. delete the user
+      // 3. delete the user
       await user.delete()
-      // 3. delete the address
+      // 4. delete the address
       for(let ad of addressesId){
         let selectedAddress = await Addresses.find(ad)
         await selectedAddress.delete()

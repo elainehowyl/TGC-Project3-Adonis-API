@@ -2,8 +2,20 @@
 
 const Addresses = use('App/Models/Address')
 const Users = use('App/Models/User')
+const Database = use('Database')
+
 
 class AddressController {
+  async index({response}){
+    let address_user = await Addresses.query().with('users').fetch()
+    response.json(address_user)
+  }
+  // async index({response, params}){
+  //   let addressId = params.id
+  //   let address = await Addresses.find(addressId)
+  //   let address_user = await Database.table('addresses')
+  //   response.json(address_user)
+  // }
   async create({view}){
     return view.render('addresses/createnewaddress')
   }

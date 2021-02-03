@@ -54,4 +54,6 @@ Route.get('/orders','OrderController.adminIndex').as('orderList')
 Route.get('/orders/create','OrderController.create').as('createNewOrder')
 Route.post('/orders/create','OrderController.processCreate')
 
+Route.get('/address-fetch-user','AddressController.index')
+
 Route.get('/cloudinary/sign', 'CloudinaryController.sign').as('cloudinary_sign')

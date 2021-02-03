@@ -12,6 +12,13 @@ INSERT INTO address_user (address_id, user_id)
 VALUES
 ('3','1');
 
+INSERT INTO orders (user_id, total_price, address_id)
+VALUES
+(23, 50000, 29),
+(23, 78090, 30),
+(23, 75673, 30),
+(23, 64899, 29)
+
 ALTER TABLE addresses RENAME COLUMN building_number TO building_name;
 
 SELECT * FROM users JOIN address_user ON users.id = address_user.user_id;
