@@ -15,16 +15,13 @@
         align-items:center
       }
     </style>
-    <title>Login</title>
+    <title>Admin Register</title>
   </head>
   <body>
-    @if(flashMessage('warning'))
-      <div class="alert alert-danger">{{ flashMessage('warning') }}</div>
-    @endif
     <div class="container">
      <form method="POST">
        {{csrfField()}}
-       <h1>Admin Login</h1>
+       <h1>Register Admin</h1>
        <div>
         <label class="form-label">Username</label>
         <input type="text" class="form-control" name="username"/>
@@ -33,10 +30,10 @@
         <label class="form-label">Password</label>
         <input type="password" class="form-control" name="password"/>
        </div>
-       <input type="submit" value="Login" class="btn btn-light mt-3 mb-1"/><br><br>
-       <div style="text-align: center">
-         <a href="{{ route('adminregister')}}">Register an admin account</a>
-       </div>
+       <a href="{{ route('loginpage')}}">
+          <button type="button" class="btn btn-dark mt-3">Back</button>
+       </a>
+       <input type="submit" value="Register" class="btn btn-dark mt-3"/>
      </form>
     </div>
 

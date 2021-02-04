@@ -4,6 +4,7 @@ const { validateAll } = use('Validator')
 const Users = use('App/Models/User')
 const Addresses = use('App/Models/Address')
 const Orders = use('App/Models/Order')
+const Admin = use('App/Models/Admin')
 
 class UserController {
   // for cRud api
@@ -14,14 +15,14 @@ class UserController {
     response.json(users)
   }
   // for cRud admin view
-  async adminIndex({view, auth}){
-    let user = await Users.find(auth.user.id)
+  async adminIndex({view,auth}){
+    let admin = await Admin.find(auth.admin.id)
     let users = await Users.query().with('addresses').fetch()
     // let users = await Users.all()
     // let addresses = await users.addresses().fetch().all()
     return view.render('users/usersList', {
       'users':users.toJSON(),
-      'user':user.toJSON()
+      'admin':admin.toJSON()
     })
   }
   // for Crud in admin view
@@ -132,34 +133,34 @@ class UserController {
       }
       response.route('UsersList')
   }
-  login({view}){
-    return view.render('loginpage')
-  }
-  async processLogin({auth, request, response, session}){
-    let body = request.post()
-    // let users = await Users.all()
-    // let usersJ = users.toJSON()
-    // for(let u of usersJ){
-    //   if(!u.email.includes(body.email)){
-    //     session.flash({ warning: "Email does not exist!"})
-    //   }
-    //   else{
-    //     if(body.password !== u.password){
-    //       session.flash({ warning: "Password does not match!"})
-    //     }
-    //     else{
-    //       await auth.attempt(body.email, body.password)
-    //       response.route('UsersList')
-    //     }
-    //   }
-    // }
-    await auth.attempt(body.email, body.password)
-    response.route('UsersList')
-  }
-  async logout({auth, response}){
-    await auth.logout()
-    response.route('loginpage')
-  }
+  // login({view}){
+  //   return view.render('loginpage')
+  // }
+  // async processLogin({auth, request, response, session}){
+  //   let body = request.post()
+  //   // let users = await Users.all()
+  //   // let usersJ = users.toJSON()
+  //   // for(let u of usersJ){
+  //   //   if(!u.email.includes(body.email)){
+  //   //     session.flash({ warning: "Email does not exist!"})
+  //   //   }
+  //   //   else{
+  //   //     if(body.password !== u.password){
+  //   //       session.flash({ warning: "Password does not match!"})
+  //   //     }
+  //   //     else{
+  //   //       await auth.attempt(body.email, body.password)
+  //   //       response.route('UsersList')
+  //   //     }
+  //   //   }
+  //   // }
+  //   await auth.attempt(body.email, body.password)
+  //   response.route('UsersList')
+  // }
+  // async logout({auth, response}){
+  //   await auth.logout()
+  //   response.route('loginpage')
+  // }
 }
 
 module.exports = UserController

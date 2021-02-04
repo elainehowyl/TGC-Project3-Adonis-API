@@ -1,7 +1,7 @@
 @layout('base')
 @section('content')
 <h1>Customer's List</h1>
-<h2>Welcome back, {{user.first_name}} {{user.last_name}}</h2>
+<h2>Welcome back, {{admin.username}}</h2>
 <a href="{{ route('createNewUser')}}">
   <button type="button" class="btn btn-primary">Create new account</button>
 </a>
