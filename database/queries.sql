@@ -15,6 +15,7 @@ VALUES
 INSERT INTO admins (username, password)
 VALUES
 ('admin','theburgershopadmin');
+('admin2','theburgershopadmin2')
 
 INSERT INTO orders (user_id, total_price, address_id)
 VALUES

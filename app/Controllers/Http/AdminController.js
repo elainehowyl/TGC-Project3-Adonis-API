@@ -37,10 +37,32 @@ class AdminController {
   login({view}){
     return view.render('loginpage')
   }
-  async processLogin({auth, request, response}){
+  async processLogin({auth, request, response,session}){
     let body = request.post()
-    await auth.authenticator('admin').attempt(body.username, body.password)
-    response.route('UsersList')
+    let loggedInAdmin = await Admin.findBy('username', body.username)
+    let loggedInAdminJ = loggedInAdmin.toJSON()
+    let verifyPassword = await Hash.verify(body.password,loggedInAdminJ.password)
+    await Hash.verify('plain-value', 'hashed-value')
+    if(!loggedInAdmin){
+      session
+        .withErrors({username:'Username is not a registered user'})
+        .flashAll()
+     return response.redirect('back')
+    }
+    else{
+      if(!verifyPassword){
+        session
+          .withErrors({password:'Incorrect password'})
+          .flashAll()
+        return response.redirect('back')
+      }
+      else{
+        await auth.authenticator('admin').attempt(body.username, body.password)
+        response.route('UsersList')
+      }
+    }
+    // await auth.authenticator('admin').attempt(body.username, body.password)
+    // response.route('UsersList')
   }
   async logout({auth, response}){
     await auth.logout()

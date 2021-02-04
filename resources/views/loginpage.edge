@@ -27,11 +27,17 @@
        <h1>Admin Login</h1>
        <div>
         <label class="form-label">Username</label>
-        <input type="text" class="form-control" name="username"/>
+        <input type="text" name="username" value="{{ old('username','') }}" class="form-control {{hasErrorFor('username') ? 'is-invalid' : ''}}"/>
+        @if(hasErrorFor('username'))
+          <div class="invalid-feedback">{{ getErrorFor ('username') }}</div>
+        @endif
        </div>
        <div>
         <label class="form-label">Password</label>
-        <input type="password" class="form-control" name="password"/>
+        <input type="password" name="password" class="form-control {{hasErrorFor('password') ? 'is-invalid' : ''}}"/>
+        @if(hasErrorFor('password'))
+          <div class="invalid-feedback">{{ getErrorFor('password') }}</div>
+        @endif
        </div>
        <input type="submit" value="Login" class="btn btn-light mt-3 mb-1"/><br><br>
        <div style="text-align: center">
