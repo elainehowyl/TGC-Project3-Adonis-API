@@ -1,5 +1,6 @@
 'use strict'
 
+const { validateAll } = use('Validator')
 const Categories = use('App/Models/Category')
 const Foods = use('App/Models/Food')
 const Database = use('Database')
@@ -23,7 +24,6 @@ class CategoryController {
     let newCategory = new Categories()
     newCategory.name = body.name
     await newCategory.save()
-    // response.redirect('/category')
     response.route('categoryList')
   }
   async update({request, params, view}){

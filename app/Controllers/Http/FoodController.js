@@ -1,5 +1,6 @@
 'use strict'
 
+const { validateAll } = use('Validator')
 const Foods = use('App/Models/Food')
 const Category = use('App/Models/Category')
 const Config = use('Config')
@@ -28,8 +29,26 @@ class FoodController {
     })
   }
 
-  async processCreate({request,response}){
+  async processCreate({request,response,session}){
+    const rules = {
+      name:'required',
+      description:'required',
+      price:'required',
+    }
+
+    const messages = {
+     'name.required':'Please enter a food title',
+     'description.required':'Please enter a description of the food',
+     'price.required':'Please provide a price',
+    }
     let body = request.post()
+    const validation = await validateAll(body, rules, messages)
+    if (validation.fails()) {
+      session
+        .withErrors(validation.messages())
+        .flashAll()
+      return response.redirect('back')
+    }
     let newFood = new Foods()
     newFood.name = body.name
     newFood.description = body.description
@@ -37,7 +56,6 @@ class FoodController {
     newFood.image_source = body.image_source
     newFood.category_id = body.category
     await newFood.save()
-    // response.json(newFood)
     response.route('foodList')
   }
 
