@@ -19,8 +19,22 @@ class CategoryController {
   async create({view}){
     return view.render('categories/createcategory')
   }
-  async processCreate({request,response}){
+  async processCreate({request,response,session}){
+    const rules = {
+      name:'required',
+    }
+
+    const messages = {
+     'name.required':'Please provide a category title',
+    }
     let body = request.post()
+    const validation = await validateAll(body, rules, messages)
+    if (validation.fails()) {
+      session
+        .withErrors(validation.messages())
+        .flashAll()
+      return response.redirect('back')
+    }
     let newCategory = new Categories()
     newCategory.name = body.name
     await newCategory.save()

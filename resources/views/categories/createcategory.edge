@@ -5,7 +5,10 @@
   {{csrfField()}}
   <div>
     <label class="form-label">Category Name</label>
-    <input type="text" class="form-control" name="name"/>
+    <input type="text" name="name" class="form-control {{ hasErrorFor('name') ? 'is-invalid' : '' }}"/>
+    @if(hasErrorFor('name'))
+    <div class="invalid-feedback">{{ getErrorFor('name') }}</div>
+    @endif
   </div>
   <input type="submit" class="btn btn-light mt-3"/>
 </form>
