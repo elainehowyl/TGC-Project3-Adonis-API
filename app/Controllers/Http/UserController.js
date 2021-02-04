@@ -5,8 +5,6 @@ const Users = use('App/Models/User')
 const Addresses = use('App/Models/Address')
 const Orders = use('App/Models/Order')
 
-
-
 class UserController {
   // for cRud api
   async index({response}){

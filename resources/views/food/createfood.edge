@@ -5,21 +5,21 @@
   {{csrfField()}}
   <div>
     <label class="form-label">Food Title</label>
-    <input type="name" name="name" class="form-control {{ hasErrorFor('name') ? 'is-invalid' : '' }}"/>
+    <input type="name" name="name" value="{{ old('name', '') }}" class="form-control {{ hasErrorFor('name') ? 'is-invalid' : '' }}"/>
     @if(hasErrorFor('name'))
     <div class="invalid-feedback">{{ getErrorFor('name') }}</div>
     @endif
   </div>
   <div class="form-group">
     <label class="form-label">Description</label>
-    <textarea rows="3" name="description" class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"></textarea>
+    <textarea rows="3" name="description" value="{{ old('description', '') }}" class="form-control {{ hasErrorFor('description') ? 'is-invalid' : '' }}"></textarea>
     @if(hasErrorFor('description'))
     <div class="invalid-feedback">{{ getErrorFor('description') }}</div>
     @endif
   </div>
   <div>
     <label class="form-label">Price</label>
-    <input type="text" name="price" class="form-control {{ hasErrorFor('price') ? 'is-invalid' : '' }}"/>
+    <input type="text" name="price" value="{{ old('price', '') }}" class="form-control {{ hasErrorFor('price') ? 'is-invalid' : '' }}"/>
     @if(hasErrorFor('price'))
     <div class="invalid-feedback">{{ getErrorFor('price') }}</div>
     @endif
