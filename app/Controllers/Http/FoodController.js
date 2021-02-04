@@ -55,6 +55,7 @@ class FoodController {
     newFood.price = body.price
     newFood.image_source = body.image_source
     newFood.category_id = body.category
+    session.flash({ notification: `${newFood.name} has been created` });
     await newFood.save()
     response.route('foodList')
   }

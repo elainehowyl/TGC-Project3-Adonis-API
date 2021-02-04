@@ -37,6 +37,7 @@ class CategoryController {
     }
     let newCategory = new Categories()
     newCategory.name = body.name
+    session.flash({ notification: `${newCategory.name} has been created` });
     await newCategory.save()
     response.route('categoryList')
   }
