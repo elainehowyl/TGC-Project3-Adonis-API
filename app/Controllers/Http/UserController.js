@@ -1,33 +1,11 @@
 'use strict'
 
-// const { validateAll } = use('Validator')
+const { validateAll } = use('Validator')
 const Users = use('App/Models/User')
 const Addresses = use('App/Models/Address')
 const Orders = use('App/Models/Order')
 
-// const rules = {
-//   email:'required',
-//   password:'required|min:8',
-//   first_name:'required',
-//   last_name:'required',
-//   contact_number:'required|min:8',
-//   street_name:'required',
-//   unit_number:'required',
-//   postal_code:'required',
-// }
 
-// const messages = {
-//   'email.required':'Please provide an email',
-//   'password.required':'Please provide a password',
-//   'password.min':'Password should be at least 8 characters long',
-//   'first_name.required':'Please enter your first name',
-//   'last_name.required':'Please enter your last name',
-//   'contact_number.required':'Please provide a contact number',
-//   'contact_number.min':'Please provide a valid contact number',
-//   'street_name.required':'Please enter your street name',
-//   'unit_number.required':'Please enter your unit number',
-//   'postal_code.required':'Please enter your postal code'
-// }
 
 class UserController {
   // for cRud api
@@ -54,15 +32,37 @@ class UserController {
   }
   // for processing Crud in admin view
   async processCreate({response, request, session}){
-    let body = request.post()
-    // const validation = await validateAll(body, rules, messages)
-    // if (validation.fails()) {
-    //   session
-    //     .withErrors(validation.messages())
-    //     .flashExcept(['password'])
+    const rules = {
+      email:'required',
+      password:'required|min:8',
+      first_name:'required',
+      last_name:'required',
+      contact_number:'required|min:8',
+      street_name:'required',
+      unit_number:'required',
+      postal_code:'required',
+    }
 
-    //   return response.redirect('back')
-    // }
+    const messages = {
+     'email.required':'Please provide an email',
+     'password.required':'Please provide a password',
+     'password.min':'Password should be at least 8 characters long',
+     'first_name.required':'Please enter your first name',
+     'last_name.required':'Please enter your last name',
+     'contact_number.required':'Please provide a contact number',
+     'contact_number.min':'Please provide a valid contact number',
+     'street_name.required':'Please enter your street name',
+     'unit_number.required':'Please enter your unit number',
+     'postal_code.required':'Please enter your postal code'
+    }
+    let body = request.post()
+    const validation = await validateAll(body, rules, messages)
+    if (validation.fails()) {
+      session
+        .withErrors(validation.messages())
+        .flashAll()
+      return response.redirect('back')
+    }
     let newUser = new Users()
     newUser.email = body.email
     newUser.password = body.password

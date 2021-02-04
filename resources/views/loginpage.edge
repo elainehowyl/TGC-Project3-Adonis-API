@@ -7,13 +7,6 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <style>
-      .container{
-        display:flex;
-        align-content:center;
-        justify-content:center;
-      }
-    </style>
     <title>Login</title>
   </head>
   <body>
@@ -21,6 +14,7 @@
       <div class="alert alert-danger">{{ flashMessage('warning') }}</div>
     @endif
     <div class="container">
+     <div class="d-flex justify-content-center align-items-center">
      <form method="POST">
        {{csrfField()}}
        <div>
@@ -31,8 +25,9 @@
         <label class="form-label">Password</label>
         <input type="password" class="form-control" name="password"/>
        </div>
-       <input type="submit" class="btn btn-light mt-3"/>
+       <input type="submit" value="Login" class="btn btn-light mt-3"/>
      </form>
+     </div>
     </div>
 
     <!-- Optional JavaScript -->
