@@ -27,19 +27,20 @@ module.exports = {
   | Session authentication is always persistent.
   |
   */
-  session: {
-    serializer: 'lucid',
-    model: 'App/Models/User',
-    scheme: 'session',
-    uid: 'email',
-    password: 'password'
-  },
 
   admin: {
     serializer: 'lucid',
     model: 'App/Models/Admin',
     scheme: 'session',
     uid: 'username',
+    password: 'password'
+  },
+
+  session: {
+    serializer: 'lucid',
+    model: 'App/Models/User',
+    scheme: 'session',
+    uid: 'email',
     password: 'password'
   },
 
