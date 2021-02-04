@@ -1,12 +1,8 @@
 @layout('base')
 @section('content')
 <h1>Customer's List</h1>
-<h2>Welcome back, {{admin.username}}</h2>
 <a href="{{ route('createNewUser')}}">
   <button type="button" class="btn btn-primary">Create new account</button>
-</a>
-<a href="{{ route('logoutpage')}}">
-  <button type="button" class="btn btn-primary">Logout</button>
 </a>
 <table class="table">
   <tr>

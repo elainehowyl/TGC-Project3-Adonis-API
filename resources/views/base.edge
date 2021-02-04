@@ -8,11 +8,28 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Welcome Page</title>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav d-flex justify-content-between">
+          <div class="d-flex flex-row">
+            <a class="nav-item nav-link" href="{{ route('UsersList')}}">Customers List</a>
+            <a class="nav-item nav-link" href="{{ route('categoryList')}}">Categories</a>
+            <a class="nav-item nav-link" href="{{ route('foodList')}}">Menu</a>
+            <a class="nav-item nav-link" href="{{ route('orderList')}}">Order History</a>
+          </div>
+          <div>
+            <a class="nav-item nav-link d-flex flex-row" href="{{ route('logoutpage')}}">
+              <h4> {{auth.user.username}} </h4>
+              <button type="button" class="btn btn-outline-light btn-sm">Logout</button>
+            </a>
+          </div>
+        </div>
+      </div>
+     </nav>
     @if(flashMessage('notification'))
-      {{--  <div class="alert alert-success">{{ flashMessage('notification') }}</div>  --}}
       <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ flashMessage('notification') }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -20,7 +37,7 @@
         </button>
       </div>
     @endif
-    <div class="container">
+    <div class="container mt-5">
       @section('content')
       @endsection
     </div>

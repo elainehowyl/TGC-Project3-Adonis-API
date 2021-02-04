@@ -15,14 +15,12 @@ class UserController {
     response.json(users)
   }
   // for cRud admin view
-  async adminIndex({view, auth}){
-    let admin = await Admin.find(auth.user.id)
+  async adminIndex({view}){
     let users = await Users.query().with('addresses').fetch()
     // let users = await Users.all()
     // let addresses = await users.addresses().fetch().all()
     return view.render('users/usersList', {
-      'users':users.toJSON(),
-      'admin':admin.toJSON()
+      'users':users.toJSON()
     })
   }
   // for Crud in admin view
