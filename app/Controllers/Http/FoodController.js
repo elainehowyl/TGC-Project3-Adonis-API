@@ -91,10 +91,11 @@ class FoodController {
   // Deleting of food will only occurs before customer can make an order
   // Therefore, there should be no reason to worry about the associating food with order part.
 
-  async delete({params, response}){
+  async delete({params, response, session}){
     let foodId = params.id
     let food = await Foods.find(params.id)
     await food.orders().detach()
+    session.flash({ warning: `${food.name} has been deleted successfully` });
     await food.delete()
     response.route('foodList')
   }

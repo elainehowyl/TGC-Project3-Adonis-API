@@ -56,10 +56,11 @@ class CategoryController {
     await category.save()
     response.route('categoryList')
   }
-  async delete({params, response}){
+  async delete({params, respons, session, response}){
     let categoryId = params.id
     await Foods.query().where('category_id', categoryId).delete()
     let category = await Categories.find(categoryId)
+    session.flash({ warning: `${category.name} has been deleted successfully` });
     await category.delete()
     response.route('categoryList')
   }

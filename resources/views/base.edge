@@ -12,26 +12,46 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav d-flex justify-content-between">
-          <div class="d-flex flex-row">
-            <a class="nav-item nav-link" href="{{ route('UsersList')}}">Customers List</a>
-            <a class="nav-item nav-link" href="{{ route('categoryList')}}">Categories</a>
-            <a class="nav-item nav-link" href="{{ route('foodList')}}">Menu</a>
-            <a class="nav-item nav-link" href="{{ route('orderList')}}">Order History</a>
-          </div>
-          <div>
-            <a class="nav-item nav-link d-flex flex-row" href="{{ route('logoutpage')}}">
-              <h4> {{auth.user.username}} </h4>
-              <button type="button" class="btn btn-outline-light btn-sm">Logout</button>
-            </a>
-          </div>
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('UsersList')}}">Customers List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('categoryList')}}">Food Categories</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('foodList')}}">Menu</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('orderList')}}">Order History</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{auth.user.username}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{{ route('logoutpage')}}">Logout</a>
         </div>
-      </div>
-     </nav>
+      </li>
+    </ul>
+  </div>
+</nav>
     @if(flashMessage('notification'))
       <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ flashMessage('notification') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    @endif
+    @if(flashMessage('warning'))
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ flashMessage('warning') }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
