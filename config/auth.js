@@ -16,7 +16,8 @@ module.exports = {
   | Available Serializers - lucid, database
   |
   */
-  authenticator: 'admin',
+  authenticator: 'session',
+  // this means that, if i didn't specify an authenticator in my controller, adonis will use session as the default.
 
   /*
   |--------------------------------------------------------------------------
