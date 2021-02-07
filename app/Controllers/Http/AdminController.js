@@ -40,8 +40,6 @@ class AdminController {
   async processLogin({auth, request, response,session}){
     let body = request.post()
     let loggedInAdmin = await Admin.findBy('username', body.username)
-    let loggedInAdminJ = loggedInAdmin.toJSON()
-    let verifyPassword = await Hash.verify(body.password,loggedInAdminJ.password)
     await Hash.verify('plain-value', 'hashed-value')
     if(!loggedInAdmin){
       session
@@ -50,6 +48,8 @@ class AdminController {
      return response.redirect('back')
     }
     else{
+      let loggedInAdminJ = loggedInAdmin.toJSON()
+      let verifyPassword = await Hash.verify(body.password,loggedInAdminJ.password)
       if(!verifyPassword){
         session
           .withErrors({password:'Incorrect password'})

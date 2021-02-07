@@ -28,38 +28,8 @@ class UserController {
     return view.render('users/createuser')
   }
   // for processing Crud in admin view
-  async processCreate({response, request, session}){
-    const rules = {
-      email:'required',
-      password:'required|min:8',
-      first_name:'required',
-      last_name:'required',
-      contact_number:'required|min:8',
-      street_name:'required',
-      unit_number:'required',
-      postal_code:'required',
-    }
-
-    const messages = {
-     'email.required':'Please provide an email',
-     'password.required':'Please provide a password',
-     'password.min':'Password should be at least 8 characters long',
-     'first_name.required':'Please enter your first name',
-     'last_name.required':'Please enter your last name',
-     'contact_number.required':'Please provide a contact number',
-     'contact_number.min':'Please provide a valid contact number',
-     'street_name.required':'Please enter your street name',
-     'unit_number.required':'Please enter your unit number',
-     'postal_code.required':'Please enter your postal code'
-    }
+  async processCreate({response, request}){
     let body = request.post()
-    const validation = await validateAll(body, rules, messages)
-    if (validation.fails()) {
-      session
-        .withErrors(validation.messages())
-        .flashAll()
-      return response.redirect('back')
-    }
     let newUser = new Users()
     newUser.email = body.email
     newUser.password = body.password
@@ -83,7 +53,6 @@ class UserController {
       newAddress.building_name = body.building_name
     }
     newAddress.postal_code = body.postal_code
-    session.flash({ notification: `${newUser.last_name} has been created` });
     await newAddress.save()
     await newUser.addresses().attach(newAddress.id)
     response.redirect('/users')

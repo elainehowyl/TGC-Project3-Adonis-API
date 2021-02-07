@@ -12,7 +12,7 @@
         height:100vh;
         display:flex;
         justify-content:center;
-        align-items:center
+        align-items:center;
       }
     </style>
     <title>Login</title>
@@ -24,22 +24,23 @@
     <div class="container">
      <form method="POST">
        {{csrfField()}}
-       <h1>Admin Login</h1>
-       <div>
-        <label class="form-label">Username</label>
-        <input type="text" name="username" value="{{ old('username','') }}" class="form-control {{hasErrorFor('username') ? 'is-invalid' : ''}}"/>
+       <div style="text-align:center">
+       <img src="burger_shop_logo.png" height="150px"/>
+        <h3>Admin Login</h3>
+       </div>
+       <div class="mb-2">
+        <input type="text" name="username" value="{{ old('username','') }}" placeholder="Username" class="form-control form-control-sm {{hasErrorFor('username') ? 'is-invalid' : ''}}"/>
         @if(hasErrorFor('username'))
           <div class="invalid-feedback">{{ getErrorFor ('username') }}</div>
         @endif
        </div>
        <div>
-        <label class="form-label">Password</label>
-        <input type="password" name="password" class="form-control {{hasErrorFor('password') ? 'is-invalid' : ''}}"/>
+        <input type="password" name="password" placeholder="Password" class="form-control form-control-sm {{hasErrorFor('password') ? 'is-invalid' : ''}}"/>
         @if(hasErrorFor('password'))
           <div class="invalid-feedback">{{ getErrorFor('password') }}</div>
         @endif
        </div>
-       <input type="submit" value="Login" class="btn btn-light mt-3 mb-1"/><br><br>
+       <input type="submit" value="Login" class="btn btn-light btn-sm mt-2"/><br><br>
        <div style="text-align: center">
          <a href="{{ route('adminregister')}}">Register an admin account</a>
        </div>
