@@ -18,9 +18,6 @@
     <title>Login</title>
   </head>
   <body>
-    @if(flashMessage('warning'))
-      <div class="alert alert-danger">{{ flashMessage('warning') }}</div>
-    @endif
     <div class="container">
      <form method="POST">
        {{csrfField()}}

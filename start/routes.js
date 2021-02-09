@@ -26,11 +26,13 @@ Route.get('/admin/logout', 'AdminController.logout').as('logoutpage')
 
 Route.get('/users-api', 'UserController.index')
 Route.get('/users', 'UserController.adminIndex').as('UsersList').middleware('auth:admin')
-Route.get('/users/create', 'UserController.create').as('createNewUser').middleware('auth:admin')
-Route.post('/users/create', 'UserController.processCreate').middleware('auth:admin')
+Route.get('/users/create', 'UserController.create').as('createNewUser')
+Route.post('/users/create', 'UserController.processCreate')
 Route.get('/users/update/:id', 'UserController.update').middleware('auth:admin')
 Route.post('/users/update/:id', 'UserController.processUpdate').as('updateUser').middleware('auth:admin')
 Route.get('/users/delete/:id', 'UserController.delete').as('deleteUser').middleware('auth:admin')
+
+Route.post('/users/login', 'UserController.login')
 
 Route.get('/users/addAddress/:id', 'AddressController.create').middleware('auth:admin')
 Route.post('/users/addAddress/:id', 'AddressController.processCreate').as('createNewAddress').middleware('auth:admin')
