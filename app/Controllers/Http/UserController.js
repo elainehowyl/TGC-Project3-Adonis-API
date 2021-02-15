@@ -24,9 +24,9 @@ class UserController {
     })
   }
   // for Crud in admin view
-  async create({view}){
-    return view.render('users/createuser')
-  }
+  // async create({view}){
+  //   return view.render('users/createuser')
+  // }
   // for processing Crud in admin view
   async processCreate({response, request}){
     let body = request.post()
@@ -55,7 +55,9 @@ class UserController {
     newAddress.postal_code = body.postal_code
     await newAddress.save()
     await newUser.addresses().attach(newAddress.id)
-    response.redirect('/users')
+    response.send({
+      'status':'ok'
+    })
   }
   async update({request, params, view}){
     let userId = request.params.id

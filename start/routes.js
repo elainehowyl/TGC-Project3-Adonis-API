@@ -26,7 +26,7 @@ Route.get('/admin/logout', 'AdminController.logout').as('logoutpage')
 
 Route.get('/users-api', 'UserController.index')
 Route.get('/users', 'UserController.adminIndex').as('UsersList').middleware('auth:admin')
-Route.get('/users/create', 'UserController.create').as('createNewUser')
+// Route.get('/users/create', 'UserController.create').as('createNewUser')
 Route.post('/users/create', 'UserController.processCreate')
 Route.get('/users/update/:id', 'UserController.update').middleware('auth:admin')
 Route.post('/users/update/:id', 'UserController.processUpdate').as('updateUser').middleware('auth:admin')
