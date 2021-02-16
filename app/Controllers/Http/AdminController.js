@@ -21,6 +21,7 @@ class AdminController {
      'password.confirmed':'Passwords do not match'
     }
     let body = request.post()
+    console.log(body)
     const validation = await validateAll(body, rules, messages)
     if (validation.fails()) {
       session

@@ -110,6 +110,16 @@ class UserController {
     let token = await auth.authenticator('api').attempt(uid, password)
     return response.json(token)
   }
+
+  async profile({ response, auth }){
+    try{
+      let user = await auth.authenticator('api').getUser()
+      response.json(user)
+    } catch (error) {
+      console.log(error)
+      response.send(error)
+    }
+  }
 }
 
 module.exports = UserController

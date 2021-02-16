@@ -32,7 +32,8 @@ Route.get('/users/update/:id', 'UserController.update').middleware('auth:admin')
 Route.post('/users/update/:id', 'UserController.processUpdate').as('updateUser').middleware('auth:admin')
 Route.get('/users/delete/:id', 'UserController.delete').as('deleteUser').middleware('auth:admin')
 
-Route.post('/users/login', 'UserController.login')
+Route.post('api/user/login', 'UserController.login')
+Route.get('api/user/profile', 'UserController.profile')
 
 Route.get('/users/addAddress/:id', 'AddressController.create').middleware('auth:admin')
 Route.post('/users/addAddress/:id', 'AddressController.processCreate').as('createNewAddress').middleware('auth:admin')
