@@ -13,7 +13,7 @@
     <textarea class="form-control" rows="3" name="description">{{food.description}}</textarea>
   </div>
   <div>
-    <label class="form-label">Price</label>
+    <label class="form-label">Price (in cents)</label>
     <input type="text" class="form-control" name="price" value="{{food.price}}"/>
   </div>
   <div>
@@ -31,7 +31,7 @@
     <label class="form-label">Your Uploaded Image: </label><br>
     <img src="{{food.image_source}}" id="uploaded-image" height="250px"/>
   </div>
-  <input type="submit" class="btn btn-light mt-3"/>
+  <input type="submit" value="Save Changes" class="btn btn-light mt-3"/>
 </form>
 @endsection
 

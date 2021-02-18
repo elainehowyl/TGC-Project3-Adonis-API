@@ -19,7 +19,7 @@
   <tr>
     <td>
       <a href="{{ route('updateFood', {id:f.id}) }}">
-        <button class="btn btn-danger btn-sm">Update</button>
+        <button class="btn btn-danger btn-sm">Edit</button>
       </a>
     </td>
     <td>
@@ -31,7 +31,7 @@
     <td>{{f.name}}</td>
     <td>{{f.categories.name}}</td>
     <td>{{f.description}}</td>
-    <td>{{f.price}}</td>
+    <td>${{(f.price/100)}}</td>
     <td>
       <img src='{{f.image_source}}'alt="image_source" height="150px"/>
     </td>

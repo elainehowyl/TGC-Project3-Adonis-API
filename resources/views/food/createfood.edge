@@ -18,7 +18,7 @@
     @endif
   </div>
   <div>
-    <label class="form-label">Price</label>
+    <label class="form-label">Price (in cents)</label>
     <input type="text" name="price" value="{{ old('price', '') }}" class="form-control {{ hasErrorFor('price') ? 'is-invalid' : '' }}"/>
     @if(hasErrorFor('price'))
     <div class="invalid-feedback">{{ getErrorFor('price') }}</div>
@@ -39,7 +39,7 @@
     <label class="form-label">Your Uploaded Image: </label><br>
     <img src="" id="uploaded-image" height="250px"/>
   </div>
-  <input type="submit" class="btn btn-light mt-3"/>
+  <input type="submit" value="Add To Menu" class="btn btn-light mt-3"/>
 </form>
 @endsection
 
