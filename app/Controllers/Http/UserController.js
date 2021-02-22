@@ -27,38 +27,75 @@ class UserController {
   // async create({view}){
   //   return view.render('users/createuser')
   // }
-  // for processing Crud in admin view
-  async processCreate({response, request}){
-    let body = request.post()
-    let newUser = new Users()
-    newUser.email = body.email
-    newUser.password = body.password
-    newUser.first_name = body.first_name
-    newUser.last_name = body.last_name
-    newUser.contact_number = body.contact_number
-    await newUser.save()
-    let newAddress = new Addresses()
-    newAddress.street_name = body.street_name
-    if(body.block_number === null){
-      newAddress.block_number = ""
+
+  async processCreate({response, request, auth}){
+    try{
+      let body = request.post()
+      let newUser = new Users()
+      newUser.email = body.email
+      newUser.password = body.password
+      newUser.first_name = body.first_name
+      newUser.last_name = body.last_name
+      newUser.contact_number = body.contact_number
+      await newUser.save()
+      let newAddress = new Addresses()
+      newAddress.street_name = body.street_name
+      if(body.block_number === null){
+        newAddress.block_number = ""
+      }
+      else{
+        newAddress.block_number = body.block_number
+      }
+      newAddress.unit_number = body.unit_number
+      if(body.building_name === null){
+        newAddress.building_name = ""
+      }
+      else{
+        newAddress.building_name = body.building_name
+      }
+      newAddress.postal_code = body.postal_code
+      await newAddress.save()
+      await newUser.addresses().attach(newAddress.id)
+      let newUserWithAddress = await newUser.addresses().fetch()
+      return response.json(newUserWithAddress.toJSON())
+    } catch (e) {
+      console.log(e)
     }
-    else{
-      newAddress.block_number = body.block_number
-    }
-    newAddress.unit_number = body.unit_number
-    if(body.building_name === null){
-      newAddress.building_name = ""
-    }
-    else{
-      newAddress.building_name = body.building_name
-    }
-    newAddress.postal_code = body.postal_code
-    await newAddress.save()
-    await newUser.addresses().attach(newAddress.id)
-    response.send({
-      'status':'ok'
-    })
   }
+
+  // async processCreate({response, request, auth}){
+  //   let body = request.post()
+  //   let newUser = new Users()
+  //   newUser.email = body.email
+  //   newUser.password = body.password
+  //   newUser.first_name = body.first_name
+  //   newUser.last_name = body.last_name
+  //   newUser.contact_number = body.contact_number
+  //   await newUser.save()
+  //   let newAddress = new Addresses()
+  //   newAddress.street_name = body.street_name
+  //   if(body.block_number === null){
+  //     newAddress.block_number = ""
+  //   }
+  //   else{
+  //     newAddress.block_number = body.block_number
+  //   }
+  //   newAddress.unit_number = body.unit_number
+  //   if(body.building_name === null){
+  //     newAddress.building_name = ""
+  //   }
+  //   else{
+  //     newAddress.building_name = body.building_name
+  //   }
+  //   newAddress.postal_code = body.postal_code
+  //   await newAddress.save()
+  //   await newUser.addresses().attach(newAddress.id)
+  //   let nweUserWithAddress = await newUser.addresses().fetch()
+  //   return response.json(newUserWithAddress)
+  //   response.send({
+  //     'status':'ok'
+  //   })
+  // }
   async update({request, params, view}){
     let userId = request.params.id
     let user = await Users.find(userId)
@@ -107,8 +144,15 @@ class UserController {
     let data = request.post()
     let uid = data.email
     let password = data.password
-    let token = await auth.authenticator('api').attempt(uid, password)
-    return response.json(token)
+    try{
+      let token = await auth.authenticator('api').attempt(uid, password)
+      response.json(token)
+    } catch (error) {
+      console.log(error)
+      response.send(error)
+    }
+    // let token = await auth.authenticator('api').attempt(uid, password)
+    // return response.json(token)
   }
 
   async profile({ response, auth }){

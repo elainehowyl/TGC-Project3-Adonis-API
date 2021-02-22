@@ -34,7 +34,8 @@ Route.get('/users/delete/:id', 'UserController.delete').as('deleteUser').middlew
 
 Route.post('api/user/login', 'UserController.login')
 Route.get('api/user/profile', 'UserController.profile')
-Route.get('api/foodlist', 'FoodController.index')
+Route.get('api/food', 'FoodController.index')
+Route.get('api/category', 'CategoryController.index')
 
 Route.get('/users/addAddress/:id', 'AddressController.create').middleware('auth:admin')
 Route.post('/users/addAddress/:id', 'AddressController.processCreate').as('createNewAddress').middleware('auth:admin')
@@ -42,7 +43,7 @@ Route.get('/users/deleteAddress/:id', 'AddressController.delete').as('deleteAddr
 Route.get('/users/editAddress/:id', 'AddressController.update').middleware('auth:admin')
 Route.post('/users/editAddress/:id', 'AddressController.processUpdate').as('updateAddress').middleware('auth:admin')
 
-Route.get('/category-api', 'CategoryController.index')
+// Route.get('/category-api', 'CategoryController.index')
 Route.get('/category', 'CategoryController.adminIndex').as('categoryList').middleware('auth:admin')
 Route.get('/category/create', 'CategoryController.create').as('createNewCategory').middleware('auth:admin')
 Route.post('/category/create', 'CategoryController.processCreate').middleware('auth:admin')
