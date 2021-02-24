@@ -184,11 +184,12 @@ class UserController {
   async profile({ response, auth }){
     try{
       let authUser = await auth.authenticator('api').getUser()
+      // console.log(authUser.id)
       let authUserJ = await authUser.toJSON()
       let users = await Users.query().with('addresses').fetch()
       let usersJ = await users.toJSON()
       let user_address = usersJ.find(user => user.id === authUserJ.id)
-      console.log(user_address)
+      // console.log(user_address)
       response.json(user_address)
     } catch (error) {
       console.log(error)

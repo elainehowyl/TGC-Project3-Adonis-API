@@ -33,14 +33,15 @@ Route.post('/users/update/:id', 'UserController.processUpdate').as('updateUser')
 Route.get('/users/delete/:id', 'UserController.delete').as('deleteUser').middleware('auth:admin')
 
 Route.post('api/user/login', 'UserController.login')
-Route.get('api/user/profile', 'UserController.profile')
+Route.get('api/user/profile', 'UserController.profile').middleware(['auth:api'])
 Route.get('api/food', 'FoodController.index')
 Route.get('api/category', 'CategoryController.index')
-Route.post('api/addaddress', 'AddressController.processCreate')
+Route.post('api/addaddress', 'AddressController.processCreate').middleware(['auth:api'])
+Route.get('/api/deleteaddress', 'AddressController.delete').middleware(['auth:api'])
 
 // Route.get('/users/addAddress/:id', 'AddressController.create').middleware('auth:admin')
 // Route.post('/users/addAddress/:id', 'AddressController.processCreate').as('createNewAddress').middleware('auth:admin')
-Route.get('/users/deleteAddress/:id', 'AddressController.delete').as('deleteAddress').middleware('auth:admin')
+// Route.get('/users/deleteAddress/:id', 'AddressController.delete').as('deleteAddress').middleware('auth:admin')
 Route.get('/users/editAddress/:id', 'AddressController.update').middleware('auth:admin')
 Route.post('/users/editAddress/:id', 'AddressController.processUpdate').as('updateAddress').middleware('auth:admin')
 
