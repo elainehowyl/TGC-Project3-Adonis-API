@@ -164,11 +164,21 @@ class UserController {
   }
 
   async login({ request, auth, response }){
-    let data = request.post()
-    let uid = data.email
-    let password = data.password
-    let token = await auth.authenticator('api').attempt(uid, password)
-    return response.json(token)
+    try{
+      let data = request.post()
+      let uid = data.email
+      let password = data.password
+      let token = await auth.authenticator('api').attempt(uid, password)
+      response.json(token)
+    }
+    catch(error){
+      response.send(error)
+    }
+    // let data = request.post()
+    // let uid = data.email
+    // let password = data.password
+    // let token = await auth.authenticator('api').attempt(uid, password)
+    // return response.json(token)
   }
 
   async profile({ response, auth }){
