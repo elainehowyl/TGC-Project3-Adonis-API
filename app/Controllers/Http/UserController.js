@@ -29,38 +29,61 @@ class UserController {
   // }
 
   async processCreate({response, request, auth}){
-    try{
-      let body = request.post()
-      let newUser = new Users()
-      newUser.email = body.email
-      newUser.password = body.password
-      newUser.first_name = body.first_name
-      newUser.last_name = body.last_name
-      newUser.contact_number = body.contact_number
-      await newUser.save()
-      let newAddress = new Addresses()
-      newAddress.street_name = body.street_name
-      if(body.block_number === null){
-        newAddress.block_number = ""
-      }
-      else{
-        newAddress.block_number = body.block_number
-      }
-      newAddress.unit_number = body.unit_number
-      if(body.building_name === null){
-        newAddress.building_name = ""
-      }
-      else{
-        newAddress.building_name = body.building_name
-      }
-      newAddress.postal_code = body.postal_code
-      await newAddress.save()
-      await newUser.addresses().attach(newAddress.id)
-      let newUserWithAddress = await newUser.addresses().fetch()
-      return response.json(newUserWithAddress.toJSON())
-    } catch (e) {
-      console.log(e)
+    const rules = {
+      email:'required|unique:users',
+      password:'required|min:12',
+      first_name:'required',
+      last_name:'required',
+      contact_number:'required',
+      street_name:'required',
+      unit_number:'required',
+      postal_code:'required',
     }
+    const messages = {
+     'email.required':'Please provide a valid email',
+     'email.unique':'Username already exist',
+     'password.required':'Please provide a password',
+     'password.min':'Password should be at least 12 characters long',
+     'first_name.required':'Please provide a first name',
+     'last_name.required':'Please provide a last name',
+     'contact_number.required':'Please provide a contact number',
+     'street_name.required':'Please enter street name',
+     'unit_number.required':'Please enter unit number',
+     'postal_code.required':'Please enter postal code'
+    }
+    let body = request.post()
+    const validation = await validateAll(body, rules, messages)
+    if(validation.fails()){
+      return response.json(validation.messages())
+    }
+    let newUser = new Users()
+    newUser.email = body.email
+    newUser.password = body.password
+    newUser.first_name = body.first_name
+    newUser.last_name = body.last_name
+    newUser.contact_number = body.contact_number
+    await newUser.save()
+    let newAddress = new Addresses()
+    newAddress.street_name = body.street_name
+    if(body.block_number === null){
+      newAddress.block_number = ""
+    }
+    else{
+      newAddress.block_number = body.block_number
+    }
+    newAddress.unit_number = body.unit_number
+    if(body.building_name === null){
+      newAddress.building_name = ""
+    }
+    else{
+      newAddress.building_name = body.building_name
+    }
+    newAddress.postal_code = body.postal_code
+    await newAddress.save()
+    await newUser.addresses().attach(newAddress.id)
+    // let newUserWithAddress = await newUser.addresses().fetch()
+    // return response.json(newUserWithAddress.toJSON())
+    return response.send('registration successful')
   }
 
   // async processCreate({response, request, auth}){
@@ -144,21 +167,19 @@ class UserController {
     let data = request.post()
     let uid = data.email
     let password = data.password
-    try{
-      let token = await auth.authenticator('api').attempt(uid, password)
-      response.json(token)
-    } catch (error) {
-      console.log(error)
-      response.send(error)
-    }
-    // let token = await auth.authenticator('api').attempt(uid, password)
-    // return response.json(token)
+    let token = await auth.authenticator('api').attempt(uid, password)
+    return response.json(token)
   }
 
   async profile({ response, auth }){
     try{
-      let user = await auth.authenticator('api').getUser()
-      response.json(user)
+      let authUser = await auth.authenticator('api').getUser()
+      let authUserJ = await authUser.toJSON()
+      let users = await Users.query().with('addresses').fetch()
+      let usersJ = await users.toJSON()
+      let user_address = usersJ.find(user => user.id === authUserJ.id)
+      console.log(user_address)
+      response.json(user_address)
     } catch (error) {
       console.log(error)
       response.send(error)
