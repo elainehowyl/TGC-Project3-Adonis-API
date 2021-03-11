@@ -28,7 +28,7 @@ class UserController {
   //   return view.render('users/createuser')
   // }
 
-  async processCreate({response, request, auth}){
+  async processCreate({response, request}){
     const rules = {
       email:'required|unique:users',
       password:'required|min:12',
@@ -196,6 +196,31 @@ class UserController {
       response.send(error)
     }
   }
+
+  // async logout({auth, response}){
+  //   try{
+  //     await auth.logout()
+  //     response.send("logout successful")
+  //   } catch (error) {
+  //     console.log(error)
+  //     response.send(error)
+  //   }
+  // }
+
+  async userLogOut ({ auth, response }) {
+    const user = auth.current.user
+    const token = auth.getAuthHeader()
+    try{
+      await user
+      .tokens()
+      .where('token', token)
+      .update({ is_revoked: true })
+    } catch (error) {
+      console.log(error)
+      response.send(error)
+    }
+  }
+  // remember to protect route with middleware
 }
 
 module.exports = UserController

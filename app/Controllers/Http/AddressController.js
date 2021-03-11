@@ -103,7 +103,6 @@ class AddressController {
   async delete({response, request}){
     try{
       let data = request.get()
-      console.log(data)
       let addressId = data.address_id
       let address = await Addresses.find(addressId)
       // 1. remove relationship from pivot table
