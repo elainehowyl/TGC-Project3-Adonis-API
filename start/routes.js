@@ -39,6 +39,7 @@ Route.get('api/category', 'CategoryController.index')
 Route.post('api/addaddress', 'AddressController.processCreate').middleware(['auth:api'])
 Route.get('/api/deleteaddress', 'AddressController.delete').middleware(['auth:api'])
 Route.get('/api/user/logout', 'UserController.logout').middleware(['auth:api'])
+Route.post('/api/cart/create', 'CartController.createCart').middleware(['auth:api'])
 Route.post('/api/order/create', 'OrderController.processCreate').middleware(['auth:api'])
 
 // Route.get('/users/addAddress/:id', 'AddressController.create').middleware('auth:admin')

@@ -25,4 +25,6 @@ ALTER TABLE addresses RENAME COLUMN building_number TO building_name;
 
 SELECT * FROM users JOIN address_user ON users.id = address_user.user_id;
 
-DELETE from orders WHERE id=14;
+DELETE from orders WHERE id=26;
+DELETE FROM food_order WHERE id=3;
+DELETE FROM carts WHERE id=1;

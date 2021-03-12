@@ -17,9 +17,7 @@ class OrderController {
     try{
       let body = request.post()
       let newOrder = new Orders()
-      newOrder.user_id = body.user_id
-      newOrder.address_id = body.address_id
-      newOrder.total_price = body.total_price
+      newOrder.cart_id = body.cart_id
       await newOrder.save()
       await newOrder.foods().attach(body.food_id, (row) => {
         row.quantity = body.quantity
