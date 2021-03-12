@@ -14,17 +14,31 @@ class OrderController {
     })
   }
   async processCreate({request, response}){
-    let body = request.post()
-    let newOrder = new Orders()
-    newOrder.user_id = body.user_id
-    newOrder.address_id = body.address_id
-    newOrder.total_price = body.total_price
-    await newOrder.save()
-    await newOrder.foods().attach(body.food_id)
-    await newOrder.foods().attach(foods, (row) => {
-      row.quantity = body.quantity
-    })
-    return response.send("order sent successfully")
+    try{
+      let body = request.post()
+      let newOrder = new Orders()
+      newOrder.user_id = body.user_id
+      newOrder.address_id = body.address_id
+      newOrder.total_price = body.total_price
+      await newOrder.save()
+      await newOrder.foods().attach(body.food_id, (row) => {
+        row.quantity = body.quantity
+      })
+      return response.send("order sent successfully")
+    } catch (error){
+      console.log(error)
+    }
+    // let body = request.post()
+    // let newOrder = new Orders()
+    // newOrder.user_id = body.user_id
+    // newOrder.address_id = body.address_id
+    // newOrder.total_price = body.total_price
+    // await newOrder.save()
+    // await newOrder.foods().attach(body.food_id)
+    // await newOrder.foods().attach(foods, (row) => {
+    //   row.quantity = body.quantity
+    // })
+    // return response.send("order sent successfully")
   }
 }
 
