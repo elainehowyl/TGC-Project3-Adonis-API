@@ -1,8 +1,18 @@
 'use strict'
 
 const Cart = use('App/Models/Cart')
+const Users = use('App/Models/User')
 
 class CartController {
+  async viewOrder({response, params, view}){
+    let user_id = params.id
+    let user = await Users.find(params.id)
+    let carts = await Cart.query().where('user_id', '=', user_id).fetch()
+    return view.render('users/orderhistory',{
+      'user':user,
+      'carts':carts.toJSON()
+    })
+  }
   async createCart({response, request}){
     try{
       let body = request.post()

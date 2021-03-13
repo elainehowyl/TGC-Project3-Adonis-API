@@ -1,0 +1,12 @@
+@layout('base')
+@section('content')
+<h1>{{user.first_name}} {{user.last_name}}'s Order History</h1>
+@each(c in carts)
+<div class="card">
+  <div class="card-header">
+    <h5>Invoice Number: #{{c.id}}</h5>
+  </div>
+  <div class="card-body"></div>
+</div><br><br>
+@endeach
+@endsection

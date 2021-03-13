@@ -31,6 +31,7 @@ Route.post('/users/create', 'UserController.processCreate')
 Route.get('/users/update/:id', 'UserController.update').middleware(['auth:admin'])
 Route.post('/users/update/:id', 'UserController.processUpdate').as('updateUser').middleware(['auth:admin'])
 Route.get('/users/delete/:id', 'UserController.delete').as('deleteUser').middleware(['auth:admin'])
+Route.get('/users/orderhistory/:id', 'CartController.viewOrder').as('orderHistory')
 
 Route.post('api/user/login', 'UserController.login')
 Route.get('api/user/profile', 'UserController.profile').middleware(['auth:api'])
@@ -66,6 +67,7 @@ Route.get('/food/delete/:id', 'FoodController.delete').as('deleteFood').middlewa
 
 Route.get('/orders-api','OrderController.index')
 Route.get('/orders','OrderController.adminIndex').as('orderList').middleware(['auth:admin'])
+
 // Route.post('/orders/create','OrderController.processCreate').middleware(['auth:api'])
 
 Route.get('/address-fetch-user-api','AddressController.index')
