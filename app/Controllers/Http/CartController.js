@@ -8,9 +8,16 @@ class CartController {
     let user_id = params.id
     let user = await Users.find(params.id)
     let carts = await Cart.query().where('user_id', '=', user_id).fetch()
+    let cartsJ = carts.toJSON()
+    for(let c of cartsJ){
+      let address = JSON.parse(c.duplicate_address)
+      c.addressJSON = address
+      let orders = JSON.parse(c.duplicate_orders)
+      c.ordersJSON = orders
+    }
     return view.render('users/orderhistory',{
       'user':user,
-      'carts':carts.toJSON()
+      'carts':cartsJ
     })
   }
   async createCart({response, request}){

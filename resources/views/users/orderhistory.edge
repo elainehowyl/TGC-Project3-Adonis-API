@@ -1,12 +1,38 @@
 @layout('base')
 @section('content')
-<h1>{{user.first_name}} {{user.last_name}}'s Order History</h1>
+<h2>{{user.first_name}} {{user.last_name}}'s Order History</h2><br>
 @each(c in carts)
 <div class="card">
   <div class="card-header">
     <h5>Invoice Number: #{{c.id}}</h5>
   </div>
-  <div class="card-body"></div>
+  <div class="card-body">
+    <h6>Order created on: </h6><span><p>{{c.created_at}}</p></span><br>
+    <h6>Delivered Address:</h6>
+    <p>{{c.addressJSON.street_name}}{{c.addressJSON.block_number ? ', Blk' : ''}} {{c.addressJSON.block_number}}</p>
+    <p>#{{c.addressJSON.unit_number}}</p>
+    <p>{{c.addressJSON.building_name}}</p>
+    <p>Postal Code: {{c.addressJSON.postal_code}}</p><br>
+    <table class="table">
+      <tr>
+        <th>Food Item</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+      @each(o in c.ordersJSON)
+      <tr>
+        <td>{{o.foodName}}</td>
+        <td>{{o.quantity}}</td>
+        <td>${{o.price/100}}</td>
+      </tr>
+      @endeach
+      <tr>
+        <td></td>
+        <td></td>
+        <td>${{c.total_price/100}}</td>
+      </tr>
+    </table>
+  </div>
 </div><br><br>
 @endeach
 @endsection
