@@ -1,4 +1,5 @@
 'use strict'
+const Database = use('Database')
 
 const { validateAll } = use('Validator')
 const Users = use('App/Models/User')
@@ -15,14 +16,26 @@ class UserController {
     response.json(users)
   }
   // for cRud admin view
-  async adminIndex({view}){
+  async adminIndex({request, view}){
+    // let body = request.get()
+    // let query = await Database.table('users').innerJoin('address_user', 'users.id', 'address_user.user_id' )
+    // let query = await Users.query().with('addresses').fetch()
+    // console.log(query)
+    // if(body.searchid){
+    //   query.where('id', body.searchid)
+    // }
+    // if(body.searchemail){
+    //   query.where('email', body.searchemail)
+    // }
     let users = await Users.query().with('addresses').fetch()
+    // let users = await query.fetch()
     // let users = await Users.all()
     // let addresses = await users.addresses().fetch().all()
     return view.render('users/usersList', {
       'users':users.toJSON()
     })
   }
+
   // for Crud in admin view
   // async create({view}){
   //   return view.render('users/createuser')
