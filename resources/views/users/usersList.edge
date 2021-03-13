@@ -12,7 +12,11 @@
   @each(u in users)
   <tr>
     <td>{{u.id}}</td>
-    <td>{{u.first_name}} {{u.last_name}}</td>
+    <td>
+      <a href="{{ route('orderHistory', {id:u.id}) }}">
+        {{u.first_name}} {{u.last_name}}
+      </a>
+    </td>
     <td>{{u.contact_number}}</td>
     <td>{{u.email}}</td>
     @each(a in u.addresses)
