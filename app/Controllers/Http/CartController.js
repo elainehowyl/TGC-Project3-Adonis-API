@@ -19,6 +19,7 @@ class CartController {
       let newCart = new Cart()
       newCart.user_id = body.user_id
       newCart.address_id = body.address_id
+      newCart.total_price = body.total_price
       newCart.duplicate_address = body.duplicate_address
       newCart.duplicate_orders = body.duplicate_orders
       await newCart.save()
