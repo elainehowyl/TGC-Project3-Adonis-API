@@ -17,20 +17,15 @@ class UserController {
   }
   // for cRud admin view
   async adminIndex({request, view}){
-    // let body = request.get()
-    // let query = await Database.table('users').innerJoin('address_user', 'users.id', 'address_user.user_id' )
-    // let query = await Users.query().with('addresses').fetch()
-    // console.log(query)
-    // if(body.searchid){
-    //   query.where('id', body.searchid)
-    // }
-    // if(body.searchemail){
-    //   query.where('email', body.searchemail)
-    // }
-    let users = await Users.query().with('addresses').fetch()
-    // let users = await query.fetch()
-    // let users = await Users.all()
-    // let addresses = await users.addresses().fetch().all()
+    let body = request.get()
+    let query = Users.query()
+    if(body.searchid){
+        query.where('id', body.searchid)
+    }
+    if(body.searchemail){
+        query.where('email', body,searchemail)
+    }
+    let users = await query.with('addresses').fetch()
     return view.render('users/usersList', {
       'users':users.toJSON()
     })
