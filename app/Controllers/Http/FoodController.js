@@ -6,6 +6,10 @@ const Category = use('App/Models/Category')
 const Config = use('Config')
 
 class FoodController {
+  async index({response}){
+    let foods = await Foods.query().with('categories').fetch()
+    response.json(foods)
+  }
   async adminIndex({view, request}){
     let body = request.get()
     let query = Foods.query()
