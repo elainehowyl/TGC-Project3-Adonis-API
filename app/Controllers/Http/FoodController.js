@@ -6,11 +6,6 @@ const Category = use('App/Models/Category')
 const Config = use('Config')
 
 class FoodController {
-  async index({response}){
-    let foods = await Foods.query().with('categories').fetch()
-    // let foods = await Foods.all()
-    response.json(foods)
-  }
   async adminIndex({view, request}){
     let body = request.get()
     let query = Foods.query()
@@ -18,7 +13,6 @@ class FoodController {
       query.where('category_id', body.showcategories)
     }
     let foods = await query.with('categories').fetch()
-    // let foods = await Foods.all()
     let categories = await Category.all()
     return view.render('food/foodlist',{
       'foods':foods.toJSON(),

@@ -12,7 +12,6 @@ class CartController {
     if(body.searchorderid){
       query.where('id', body.searchorderid)
     }
-    // let carts = await Cart.query().where('user_id', '=', user_id).fetch()
     let carts = await query.fetch()
     let cartsJ = carts.toJSON()
     for(let c of cartsJ){

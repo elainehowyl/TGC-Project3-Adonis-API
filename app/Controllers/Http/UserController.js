@@ -8,14 +8,6 @@ const Orders = use('App/Models/Order')
 const Admin = use('App/Models/Admin')
 
 class UserController {
-  // for cRud api
-  async index({response}){
-    // let users = await Users.all()
-    // let addresses = await users.addresses().fetch()
-    let users = await Users.query().with('addresses').fetch()
-    response.json(users)
-  }
-  // for cRud admin view
   async adminIndex({request, view}){
     let body = request.get()
     let query = Users.query()
@@ -30,11 +22,6 @@ class UserController {
       'users':users.toJSON()
     })
   }
-
-  // for Crud in admin view
-  // async create({view}){
-  //   return view.render('users/createuser')
-  // }
 
   async processCreate({response, request}){
     const rules = {
@@ -94,46 +81,6 @@ class UserController {
     return response.send('registration successful')
   }
 
-  // async processCreate({response, request, auth}){
-  //   let body = request.post()
-  //   let newUser = new Users()
-  //   newUser.email = body.email
-  //   newUser.password = body.password
-  //   newUser.first_name = body.first_name
-  //   newUser.last_name = body.last_name
-  //   newUser.contact_number = body.contact_number
-  //   await newUser.save()
-  //   let newAddress = new Addresses()
-  //   newAddress.street_name = body.street_name
-  //   if(body.block_number === null){
-  //     newAddress.block_number = ""
-  //   }
-  //   else{
-  //     newAddress.block_number = body.block_number
-  //   }
-  //   newAddress.unit_number = body.unit_number
-  //   if(body.building_name === null){
-  //     newAddress.building_name = ""
-  //   }
-  //   else{
-  //     newAddress.building_name = body.building_name
-  //   }
-  //   newAddress.postal_code = body.postal_code
-  //   await newAddress.save()
-  //   await newUser.addresses().attach(newAddress.id)
-  //   let nweUserWithAddress = await newUser.addresses().fetch()
-  //   return response.json(newUserWithAddress)
-  //   response.send({
-  //     'status':'ok'
-  //   })
-  // }
-  async update({request, params, view}){
-    let userId = request.params.id
-    let user = await Users.find(userId)
-    return view.render('users/updateuser', {
-      'user':user.toJSON()
-    })
-  }
   async processUpdate({request, params, response}){
     let userId = request.params.id
     let user = await Users.find(userId)
@@ -182,11 +129,6 @@ class UserController {
     catch(error){
       response.send(error)
     }
-    // let data = request.post()
-    // let uid = data.email
-    // let password = data.password
-    // let token = await auth.authenticator('api').attempt(uid, password)
-    // return response.json(token)
   }
 
   async profile({ response, auth }){
@@ -197,7 +139,6 @@ class UserController {
       let users = await Users.query().with('addresses').fetch()
       let usersJ = await users.toJSON()
       let user_address = usersJ.find(user => user.id === authUserJ.id)
-      // console.log(user_address)
       response.json(user_address)
     } catch (error) {
       console.log(error)
