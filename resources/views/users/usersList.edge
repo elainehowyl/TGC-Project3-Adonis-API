@@ -1,22 +1,22 @@
 @layout('base')
 @section('content')
 <h1>Customer's List</h1>
-<div class="d-flex justify-content-end">
+<div class="d-flex">
 <form method="GET">
-  <div class="mb-3 row">
+  <div class="mb-3 ml-2 mt-3 row">
     <label class="col-form-label">Search by email: </label>
     <div class="col-sm-7">
-      <input type="text" name="searchemail" class="form-control">
+      <input type="text" name="searchemail" class="form-control" placeholder="Enter email">
     </div>
   </div>
-  <div class="mb-3 row">
+  <div class="mb-3 ml-2 row">
     <label class="col-form-label">Search by ID: </label>
     <div class="col-sm-7">
-      <input type="text" name="searchid" class="form-control">
+      <input type="text" name="searchid" class="form-control" placeholder="Enter ID">
     </div>
   </div>
   <div class="row">
-    <input type="submit" value="Search" class="btn btn-primary mt-1"/>
+    <input type="submit" value="Search" class="btn btn-primary mt-1 ml-3"/>
   </div>
 </form>
 </div><br><br>

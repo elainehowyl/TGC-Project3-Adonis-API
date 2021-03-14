@@ -1,6 +1,19 @@
 @layout('base')
 @section('content')
 <h2>{{user.first_name}} {{user.last_name}}'s Order History</h2><br>
+<div class="d-flex">
+  <form method="GET">
+    <div class="mb-3 ml-2 mt-3 row">
+      <label class="col-form-label">Search Order by ID: </label>
+      <div class="col-sm-7">
+        <input type="text" name="searchorderid" class="form-control" placeholder="Enter Order ID">
+      </div>
+    </div>
+    <div class="row">
+      <input type="submit" value="Search" class="btn btn-primary btn-sm ml-3 mb-3"/>
+    </div>
+  </form>
+</div>
 @each(c in carts)
 <div class="card">
   <div class="card-header">
@@ -35,4 +48,7 @@
   </div>
 </div><br><br>
 @endeach
+<div class="d-flex justify-content-center mt-4">
+  <p>{{carts.length === 0 ? 'Nothing to show. Customer has not made any order yet.' : ''}}</p>
+</div>
 @endsection

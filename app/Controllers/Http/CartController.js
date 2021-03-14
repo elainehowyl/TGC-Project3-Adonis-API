@@ -4,10 +4,16 @@ const Cart = use('App/Models/Cart')
 const Users = use('App/Models/User')
 
 class CartController {
-  async viewOrder({response, params, view}){
+  async viewOrder({response, params, view, request}){
     let user_id = params.id
     let user = await Users.find(params.id)
-    let carts = await Cart.query().where('user_id', '=', user_id).fetch()
+    let body = request.get()
+    let query = Cart.query().where('user_id', '=', user_id)
+    if(body.searchorderid){
+      query.where('id', body.searchorderid)
+    }
+    // let carts = await Cart.query().where('user_id', '=', user_id).fetch()
+    let carts = await query.fetch()
     let cartsJ = carts.toJSON()
     for(let c of cartsJ){
       let address = JSON.parse(c.duplicate_address)
