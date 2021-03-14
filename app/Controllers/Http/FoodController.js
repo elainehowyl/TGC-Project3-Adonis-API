@@ -11,11 +11,18 @@ class FoodController {
     // let foods = await Foods.all()
     response.json(foods)
   }
-  async adminIndex({view}){
-    let foods = await Foods.query().with('categories').fetch()
+  async adminIndex({view, request}){
+    let body = request.get()
+    let query = Foods.query()
+    if(body.showcategories){
+      query.where('category_id', body.showcategories)
+    }
+    let foods = await query.with('categories').fetch()
     // let foods = await Foods.all()
+    let categories = await Category.all()
     return view.render('food/foodlist',{
-      'foods':foods.toJSON()
+      'foods':foods.toJSON(),
+      'categories':categories.toJSON()
     })
   }
   async create({view}){

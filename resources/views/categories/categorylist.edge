@@ -1,9 +1,11 @@
 @layout('base')
 @section('content')
 <h1>Category List</h1>
+<div class="d-flex justify-content-end">
 <a href="{{ route('createNewCategory')}}">
   <button type="button" class="btn btn-primary">Add New Category</button>
 </a>
+</div>
 <table class="table">
   <tr>
     <th></th>

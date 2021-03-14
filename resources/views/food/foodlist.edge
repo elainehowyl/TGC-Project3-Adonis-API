@@ -1,9 +1,22 @@
 @layout('base')
 @section('content')
 <h1>Full Menu of Food Product</h1>
+<div class="d-flex justify-content-between">
 <a href="{{ route('createNewFood')}}">
-  <button type="button" class="btn btn-primary">Add new menu</button>
+  <button type="button" class="btn btn-primary btn-sm">Add new menu</button>
 </a>
+<form method="GET">
+  <div class="d-flex flex-row">
+  <select class="form-select" name="showcategories">
+    <option selected value="default">Filter by Categories</option>
+    @each(c in categories)
+    <option value="{{c.id}}">{{c.name}}</option>
+    @endeach
+  </select>
+  <input type="submit" value="Filter" class="btn btn-primary btn-sm ml-2"/>
+</form>
+</div>
+</div>
 <table class="table">
   <tr>
     <th></th>
@@ -35,7 +48,6 @@
     <td>
       <img src='{{f.image_source}}'alt="image_source" height="150px"/>
     </td>
-    {{--  <td>{{u.image_source}}</td>  --}}
   </tr>
   @endeach
 </table>
