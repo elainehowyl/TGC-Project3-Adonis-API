@@ -9,11 +9,21 @@ const CART_KEY = "cart"
 
 class CheckoutController {
   async checkout({response, session, view}) {
-    // 1. create line items
-    // retrieve line items with cart ID?
     let lineItems = []
+    // 1. retrieve cart from react
+    let data = request.get()
+    let cart = data.cart
+    // 2. create line items
+    for(let cartItem of cart) {
+      lineItems.push({
+        name: cartItem.foodName,
+        amount: cartItem.price,
+        quantity: cartItem.quantity,
+        currency:'SGD'
+      })
+    }
     let metaData = JSON.stringify(Object.values(cart))
-    // 2. create payment
+    // 3. create payment
     const payment = {
       payment_method_types = ['card'],
       line_items: lineItems,
@@ -23,7 +33,7 @@ class CheckoutController {
         'orders': metaData
       }
     }
-    // 3. register payment
+    // 4. register payment
     let stripeSession = await Stripe.checkout.sessions.create(payment)
     return view.render('checkout/checkout', {
       'sessionId':stripeSession.id, // Id of the session
