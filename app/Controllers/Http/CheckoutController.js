@@ -8,11 +8,11 @@ const Stripe = use('stripe')(Config.get('stripe.secret_key'))
 const CART_KEY = "cart"
 
 class CheckoutController {
-  async checkout({response, session, view}) {
+  async checkout({response, session, view, request}) {
     let lineItems = []
     // 1. retrieve cart from react
     let data = request.get()
-    let cart = data.cart
+    let cart = JSON.parse(data.cart)
     // 2. create line items
     for(let cartItem of cart) {
       lineItems.push({
@@ -22,12 +22,20 @@ class CheckoutController {
         currency:'SGD'
       })
     }
+    //console.log(lineItems)
     let metaData = JSON.stringify(Object.values(cart))
+    // console.log(metaData)
     // 3. create payment
     const payment = {
-      payment_method_types = ['card'],
+      payment_method_types: ['card'],
+      // payment_method_types = ['card'],
+      // line_items:[
+      //   {'name':'fish burger', 'amount':380, 'quantity':2, 'currency':'SGD'},
+      //   {'name':'french fries', 'amount':250, 'quantity':1, 'currency':'SGD'}
+      // ],
       line_items: lineItems,
       success_url: Config.get('stripe.success_url') + '?sessionId={CHECKOUT_SESSION_ID}',
+      //success_url: Config.get('stripe.success_url'),
       cancel_url: Config.get('stripe.error_url'),
       metadata: {
         'orders': metaData
@@ -35,6 +43,7 @@ class CheckoutController {
     }
     // 4. register payment
     let stripeSession = await Stripe.checkout.sessions.create(payment)
+    console.log(stripeSession)
     return view.render('checkout/checkout', {
       'sessionId':stripeSession.id, // Id of the session
       'publishableKey':Config.get('stripe.publishable_key')
