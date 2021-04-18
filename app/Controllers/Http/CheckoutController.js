@@ -5,7 +5,7 @@ const Stripe = use('stripe')(Config.get('stripe.secret_key'))
 
 // what is this for ??
 // i probably don't need it
-const CART_KEY = "cart"
+// const CART_KEY = "cart"
 
 class CheckoutController {
   async checkout({response, session, view, request, params}) {
@@ -59,10 +59,10 @@ class CheckoutController {
     // reason for using request.raw() instead of request.post():
     // request.post() will return an object which isn't what we need
     let payload = request.raw()
-    console.log("PAYLOAD: ", payload)
+    // console.log("PAYLOAD: ", payload)
     let endpointSecret = Config.get('stripe.endpoint_secret')
     let sigHeader = request.header("stripe-signature")
-    console.log("SIGHEADER: ", sigHeader)
+    // console.log("SIGHEADER: ", sigHeader)
     let event = null
     // below is to verify with stripe that they are the one who process this request
     try {
@@ -74,13 +74,16 @@ class CheckoutController {
     }
     // verified that event.type = 'checkout.session.completed
     // not sure why unable to reach site
-    console.log("EVENT: ", event)
+    // sometimes, payment status is succeed sometimes fail, not sure why
+    // console.log("EVENT: ", event)
     if (event.type == 'checkout.session.completed') {
       // what is this stripe session for?
       // what to do after that???
       let stripeSession = event.data.object
       // i need event.data.object.metadata to save in my cart controller
+      console.log("MY ORDERS: ", JSON.parse(stripeSession.metadata))
       // i also need to save event.data.object.id which is stripe payment id
+      console.log("SESSION ID: ", stripeSession.id)
       // lastly, redirect back to react??? if i can do it?
       console.log(stripeSession)
     }
