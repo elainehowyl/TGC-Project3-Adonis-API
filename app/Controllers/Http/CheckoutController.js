@@ -8,11 +8,13 @@ const Stripe = use('stripe')(Config.get('stripe.secret_key'))
 const CART_KEY = "cart"
 
 class CheckoutController {
-  async checkout({response, session, view, request}) {
+  async checkout({response, session, view, request, params}) {
     let lineItems = []
     // 1. retrieve cart from react
-    let data = request.get()
-    let cart = JSON.parse(data.cart)
+    // let data = request.get()
+    // let cart = JSON.parse(data.cart)
+    let rawCart = decodeURIComponent(params.cartitems)
+    let cart = JSON.parse(rawCart)
     // 2. create line items
     for(let cartItem of cart) {
       lineItems.push({
@@ -22,13 +24,12 @@ class CheckoutController {
         currency:'SGD'
       })
     }
-    //console.log(lineItems)
+    console.log(lineItems)
     let metaData = JSON.stringify(Object.values(cart))
-    // console.log(metaData)
+    console.log(metaData)
     // 3. create payment
     const payment = {
       payment_method_types: ['card'],
-      // payment_method_types = ['card'],
       // line_items:[
       //   {'name':'fish burger', 'amount':380, 'quantity':2, 'currency':'SGD'},
       //   {'name':'french fries', 'amount':250, 'quantity':1, 'currency':'SGD'}
@@ -48,6 +49,10 @@ class CheckoutController {
       'sessionId':stripeSession.id, // Id of the session
       'publishableKey':Config.get('stripe.publishable_key')
     })
+    // return view.render('checkout/checkout', {
+    //   'sessionId': 'cs_test_b1YZBXNhih8x1ry5DcxN0Y4T75O7e66t7L5CY4LBjWTTSEfrbyKRmj1Ffg',
+    //   'publishableKey':Config.get('stripe.publishable_key')
+    // })
   }
 
   processPayment({request, response}) {
