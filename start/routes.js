@@ -59,4 +59,4 @@ Route.get('/food/delete/:id', 'FoodController.delete').as('deleteFood').middlewa
 Route.get('/cloudinary/sign', 'CloudinaryController.sign').as('cloudinary_sign').middleware(['auth:admin'])
 
 Route.get('/api/checkout/:cartitems/checkout', 'CheckoutController.checkout').as('checkout')
-Route.post('/api/checkout/process', 'CheckoutController.processPayment').middleware(['auth:api'])
+Route.post('/api/checkout/process', 'CheckoutController.processPayment')

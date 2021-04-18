@@ -24,9 +24,9 @@ class CheckoutController {
         currency:'SGD'
       })
     }
-    console.log(lineItems)
+    //console.log(lineItems)
     let metaData = JSON.stringify(Object.values(cart))
-    console.log(metaData)
+    //console.log(metaData)
     // 3. create payment
     const payment = {
       payment_method_types: ['card'],
@@ -44,7 +44,7 @@ class CheckoutController {
     }
     // 4. register payment
     let stripeSession = await Stripe.checkout.sessions.create(payment)
-    console.log(stripeSession)
+    //console.log(stripeSession)
     return view.render('checkout/checkout', {
       'sessionId':stripeSession.id, // Id of the session
       'publishableKey':Config.get('stripe.publishable_key')
@@ -56,10 +56,15 @@ class CheckoutController {
   }
 
   processPayment({request, response}) {
+    // reason for using request.raw() instead of request.post():
+    // request.post() will return an object which isn't what we need
     let payload = request.raw()
+    console.log("PAYLOAD: ", payload)
     let endpointSecret = Config.get('stripe.endpoint_secret')
     let sigHeader = request.header("stripe-signature")
+    console.log("SIGHEADER: ", sigHeader)
     let event = null
+    // below is to verify with stripe that they are the one who process this request
     try {
       event = Stripe.webhooks.constructEvent(payload, sigHeader, endpointSecret)
     } catch(error) {
@@ -67,8 +72,17 @@ class CheckoutController {
         'error':e.message
       })
     }
+    // verified that event.type = 'checkout.session.completed
+    // not sure why unable to reach site
+    console.log("EVENT: ", event)
     if (event.type == 'checkout.session.completed') {
+      // what is this stripe session for?
+      // what to do after that???
       let stripeSession = event.data.object
+      // i need event.data.object.metadata to save in my cart controller
+      // i also need to save event.data.object.id which is stripe payment id
+      // lastly, redirect back to react??? if i can do it?
+      console.log(stripeSession)
     }
     //process stripe session
     response.json({received:true})
